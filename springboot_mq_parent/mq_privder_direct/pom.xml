@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.weng.demo</groupId>
+        <artifactId>springboot_mq_parent</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <groupId>com.rabbitmq.cloud</groupId>
+    <artifactId>mq_privder_direct</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>mq_privder_direct</name>
+    <description>Demo project for Spring Boot</description>
+    <properties>
+        <java.version>1.8</java.version>
+    </properties>
+    <dependencies>
+
+
+
+
+
+<!--
+        <dependency>
+            <groupId>huawei-commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.0.0</version>
+            <scope>system</scope>
+            <systemPath>${pom.basedir}/lib/commons-codec-1.6.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>huawei-commons-lang3</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>1.0.0</version>
+            <scope>system</scope>
+            <systemPath>${pom.basedir}/lib/commons-lang3-3.5.jar</systemPath>
+        </dependency>
+
+        <dependency>
+            <groupId>huawei-commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>1.0.0</version>
+            <scope>system</scope>
+            <systemPath>${pom.basedir}/lib/commons-logging-1.2.jar</systemPath>
+        </dependency>
+
+        <dependency>
+            <groupId>huawei-fastjson</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.0.0</version>
+            <scope>system</scope>
+            <systemPath>${pom.basedir}/lib/fastjson-1.2.56.jar</systemPath>
+        </dependency>
+
+        <dependency>
+            <groupId>huawei-httpclient</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>1.0.0</version>
+            <scope>system</scope>
+            <systemPath>${pom.basedir}/lib/httpclient-4.5.3.jar</systemPath>
+        </dependency>
+
+        <dependency>
+            <groupId>huawei-httpcore</groupId>
+            <artifactId>httpcore</artifactId>
+            <version>1.0.0</version>
+            <scope>system</scope>
+            <systemPath>${pom.basedir}/lib/httpcore-4.4.6.jar</systemPath>
+        </dependency>
+
+        <dependency>
+            <groupId>huawei-HUAWEICLOUD</groupId>
+            <artifactId>HUAWEICLOUD</artifactId>
+            <version>1.0.0</version>
+            <scope>system</scope>
+            <systemPath>${pom.basedir}/lib/HUAWEICLOUD-java-sdk-1.0.8.jar</systemPath>
+        </dependency>
+
+        <dependency>
+            <groupId>huawei-huaweilogsdk</groupId>
+            <artifactId>huaweilogsdk</artifactId>
+            <version>1.0.0</version>
+            <scope>system</scope>
+            <systemPath>${pom.basedir}/lib/huaweilogsdk-1.0.jar</systemPath>
+        </dependency>
+
+        <dependency>
+            <groupId>huawei-jackson-annotations</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>1.0.0</version>
+            <scope>system</scope>
+            <systemPath>${pom.basedir}/lib/jackson-annotations-2.2.3.jar</systemPath>
+        </dependency>
+
+        <dependency>
+            <groupId>huawei-jackson-core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>1.0.0</version>
+            <scope>system</scope>
+            <systemPath>${pom.basedir}/lib/jackson-core-2.2.3.jar</systemPath>
+        </dependency>
+
+        <dependency>
+            <groupId>huawei-jackson-databind</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>1.0.0</version>
+            <scope>system</scope>
+            <systemPath>${pom.basedir}/lib/jackson-databind-2.2.3.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>huawei-java-sdk-core</groupId>
+            <artifactId>java-sdk-core</artifactId>
+            <version>1.0.0</version>
+            <scope>system</scope>
+            <systemPath>${pom.basedir}/lib/java-sdk-core-2.0.1.jar</systemPath>
+        </dependency>
+
+        <dependency>
+            <groupId>huawei-joda-time</groupId>
+            <artifactId>java-joda-time</artifactId>
+            <version>1.0.0</version>
+            <scope>system</scope>
+            <systemPath>${pom.basedir}/lib/joda-time-2.7.jar</systemPath>
+        </dependency>
+
+        <dependency>
+            <groupId>huawei-log4j-1.2.17</groupId>
+            <artifactId>log4j-1.2.17</artifactId>
+            <version>1.0.0</version>
+            <scope>system</scope>
+            <systemPath>${pom.basedir}/lib/log4j-1.2.17.jar</systemPath>
+        </dependency>
+
+        <dependency>
+            <groupId>huawei-slf4j-api</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.0.0</version>
+            <scope>system</scope>
+            <systemPath>${pom.basedir}/lib/slf4j-api-1.7.24.jar</systemPath>
+        </dependency>
+
+        <dependency>
+            <groupId>huawei-slf4j-log4j12</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.0.0</version>
+            <scope>system</scope>
+            <systemPath>${pom.basedir}/lib/slf4j-log4j12-1.7.24.jar</systemPath>
+        </dependency>
+
+        <dependency>
+            <groupId>huawei-utils</groupId>
+            <artifactId>utils</artifactId>
+            <version>1.0.0</version>
+            <scope>system</scope>
+            <systemPath>${pom.basedir}/lib/utils-3.0.0-SNAPSHOT.jar</systemPath>
+        </dependency>-->
+    </dependencies>
+
+
+
+
+
+</project>
