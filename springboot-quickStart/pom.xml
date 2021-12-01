@@ -10,8 +10,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>springboot-quickStart</artifactId>
-
-
+    <properties>
+        <!-- 打包时跳过测试类,此方式会编译测试用例 -->
+        <skipTests>true</skipTests>
+        <!-- 当前模块的主启动类 -->
+        <start-class>com.weng.business.organization.QuickStartApplication</start-class>
+    </properties>
     <dependencies>
         <!-- MySql驱动依赖 -->
         <dependency>
@@ -51,6 +55,22 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+
     </dependencies>
 
+    <build>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+            </plugin>
+
+            <plugin>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+
+        </plugins>
+    </build>
 </project>

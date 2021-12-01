@@ -22,6 +22,8 @@
         <velocity.version>2.2</velocity.version>
         <mysql-connector.version>8.0.13</mysql-connector.version>
         <druid.version>1.1.22</druid.version>
+        <maven-resources-plugin.version>3.2.0</maven-resources-plugin.version>
+        <maven-springboot-plugin.version>2.2.6.RELEASE</maven-springboot-plugin.version>
     </properties>
 
     <description>SpringBoot父Pom(所有版本号及依赖声明)</description>
@@ -82,22 +84,36 @@
     </dependencyManagement>
 
     <build>
+        <pluginManagement>
+            <plugins>
+                <!-- 编译阶段插件 -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${maven-compiler-plugin.version}</version>
+                    <configuration>
+                        <!-- 编译时使用的JDK版本及编译后的版本 -->
+                        <source>${java.version}</source>
+                        <target>${java.version}</target>
+                        <!-- 注解处理器 -->
+                    </configuration>
+                </plugin>
+                <!-- 打jar包时如果不配置该插件，打出来的jar包没有清单文件 ，否则通过java -jar无法启动-->
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <version>${maven-springboot-plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>repackage</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
 
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>${maven-compiler-plugin.version}</version>
-                <configuration>
-                    <!-- 编译时使用的JDK版本及编译后的版本 -->
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
-                    <!-- 注解处理器 -->
-
-                </configuration>
-            </plugin>
-
-        </plugins>
+            </plugins>
+        </pluginManagement>
     </build>
 
     <!-- 子模块声明 -->
