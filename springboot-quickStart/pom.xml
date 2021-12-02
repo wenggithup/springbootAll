@@ -59,6 +59,8 @@
     </dependencies>
 
     <build>
+        <!-- 指定打包的后的包名,此处 -->
+
 
         <plugins>
             <plugin>
