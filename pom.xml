@@ -24,6 +24,8 @@
         <druid.version>1.1.22</druid.version>
         <maven-resources-plugin.version>3.2.0</maven-resources-plugin.version>
         <maven-springboot-plugin.version>2.2.6.RELEASE</maven-springboot-plugin.version>
+        <shardingsphere-jdbc.version>5.0.0-alpha</shardingsphere-jdbc.version>
+        <shardingsphere-jdbc-spring-boot.version>5.0.0-alpha</shardingsphere-jdbc-spring-boot.version>
     </properties>
 
     <description>SpringBoot父Pom(所有版本号及依赖声明)</description>
@@ -78,6 +80,18 @@
                 <artifactId>mysql-connector-java</artifactId>
                 <version>${mysql-connector.version}</version>
             </dependency>
+            <!-- shardingsphere-jdbc -->
+            <dependency>
+                <groupId>org.apache.shardingsphere</groupId>
+                <artifactId>shardingsphere-jdbc-core</artifactId>
+                <version>${shardingsphere-jdbc.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.shardingsphere</groupId>
+                <artifactId>shardingsphere-jdbc-core-spring-boot-starter</artifactId>
+                <version>${shardingsphere-jdbc-spring-boot.version}</version>
+            </dependency>
 
         </dependencies>
 
@@ -123,5 +137,7 @@
         <module>poi_demo</module>
         <module>springboot-mybatis-generator</module>
         <module>springboot-quickStart</module>
+        <!--sharding jdbc-->
+        <module>springboot-sharding-jdbc</module>
     </modules>
 </project>

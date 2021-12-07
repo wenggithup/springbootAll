@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: sharding-jdbc
+
+#数据库配置
+  datasource:
+    username: root
+    password: 123456
+    url: jdbc:mysql://localhost:13306/test_demo?serverTimezone=CST&useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&useSSL=true
+server:
+  port: 9012
+
+#配置数据源名称spring.shardingsphere.datasource.names=ds-0,ds-1spring.shardingsphere.datasource.common.type=com.zaxxer.hikari.HikariDataSourcespring.shardingsphere.datasource.common.driver-class-name=com.mysql.jdbc.Driver# 分别配置多个数据源的详细信息spring.shardingsphere.datasource.ds-0.username=rootspring.shardingsphere.datasource.ds-0.password=123456spring.shardingsphere.datasource.ds-0.jdbc-url=jdbc:mysql://192.168.221.128:3306/shard01?serverTimezone=UTC&useSSL=false&useUnicode=true&characterEncoding=UTF-8spring.shardingsphere.datasource.ds-1.username=rootspring.shardingsphere.datasource.ds-1.password=123456spring.shardingsphere.datasource.ds-1.jdbc-url=jdbc:mysql://192.168.221.128:3306/shard02?serverTimezone=UTC&useSSL=false&useUnicode=true&characterEncoding=UTF-8# 配置数据库的分库策略，其中database-inline会在后面声明spring.shardingsphere.rules.sharding.default-database-strategy.standard.sharding-column=user_idspring.shardingsphere.rules.sharding.default-database-strategy.standard.sharding-algorithm-name=database-inline# 配置t_order表的分表策略，其中t-order-inline会在后面声明# 行表达式标识符可以使用 ${...} 或 $->{...}，但前者与 Spring 本身的属性文件占位符冲突，因此在 Spring 环境中使用行表达式标识符建议使用 $->{...}spring.shardingsphere.rules.sharding.tables.t_order.actual-data-nodes=ds-$->{0..1}.t_order_$->{0..1}spring.shardingsphere.rules.sharding.tables.t_order.table-strategy.standard.sharding-column=order_idspring.shardingsphere.rules.sharding.tables.t_order.table-strategy.standard.sharding-algorithm-name=t-order-inline# 配置order_id采用雪花算法生成全局id策略spring.shardingsphere.rules.sharding.tables.t_order.key-generate-strategy.column=order_idspring.shardingsphere.rules.sharding.tables.t_order.key-generate-strategy.key-generator-name=snowflake# 配置具体的分库分表规则spring.shardingsphere.rules.sharding.sharding-algorithms.database-inline.type=INLINEspring.shardingsphere.rules.sharding.sharding-algorithms.database-inline.props.algorithm-expression=ds-$->{user_id % 2}spring.shardingsphere.rules.sharding.sharding-algorithms.t-order-inline.type=INLINEspring.shardingsphere.rules.sharding.sharding-algorithms.t-order-inline.props.algorithm-expression=t_order_$->{order_id % 2}spring.shardingsphere.rules.sharding.sharding-algorithms.t-order-item-inline.type=INLINEspring.shardingsphere.rules.sharding.sharding-algorithms.t-order-item-inline.props.algorithm-expression=t_order_item_$->{order_id % 2}# 配置雪花算法spring.shardingsphere.rules.sharding.key-generators.snowflake.type=SNOWFLAKEspring.shardingsphere.rules.sharding.key-generators.snowflake.props.worker-id=123
+
+
