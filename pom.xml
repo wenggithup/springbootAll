@@ -26,6 +26,7 @@
         <maven-springboot-plugin.version>2.2.6.RELEASE</maven-springboot-plugin.version>
         <shardingsphere-jdbc.version>5.0.0-alpha</shardingsphere-jdbc.version>
         <shardingsphere-jdbc-spring-boot.version>5.0.0-alpha</shardingsphere-jdbc-spring-boot.version>
+        <dynamic-datasource-spring-boot.version>3.4.1</dynamic-datasource-spring-boot.version>
     </properties>
 
     <description>SpringBoot父Pom(所有版本号及依赖声明)</description>
@@ -93,6 +94,12 @@
                 <version>${shardingsphere-jdbc-spring-boot.version}</version>
             </dependency>
 
+            <!-- 多数据源依赖 -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
+                <version>${dynamic-datasource-spring-boot.version}</version>
+            </dependency>
         </dependencies>
 
     </dependencyManagement>
