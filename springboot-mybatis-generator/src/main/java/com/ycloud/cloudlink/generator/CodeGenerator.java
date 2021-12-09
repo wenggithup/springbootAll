@@ -120,7 +120,7 @@ public class CodeGenerator {
         // 是否覆盖已有文件,可以和下面的cfg.setFileCreate方法配合使用,默认false
         gc.setFileOverride(true);
         // 设置主键Id类型为手动输入,不让它自动填充
-        gc.setIdType(IdType.INPUT);
+        gc.setIdType(IdType.AUTO);
         // 指定 Service 文件名
         // gc.setServiceName("%sService");
         // 将全局配置添加到生成器中
@@ -157,7 +157,7 @@ public class CodeGenerator {
                 }
                 // 数据库 bigint 类型转实体 String 类型
                 if (fieldType.toLowerCase().contains("bigint")) {
-                    return DbColumnType.STRING;
+                    return DbColumnType.LONG;
                 }
                 // 数据库 tinyint 类型转实体 Integer 类型
                 if (fieldType.toLowerCase().contains("tinyint")) {

@@ -27,10 +27,9 @@ import lombok.experimental.Accessors;
 ##@EqualsAndHashCode(callSuper = true)
  ## #else
 ##@EqualsAndHashCode(callSuper = false)
-##  #end
+#end
 #if(${chainModel})
 @Accessors(chain = true)
-#end
 #end
 #if(${table.convert})
 @TableName("${table.name}")
@@ -65,18 +64,18 @@ public class ${entity}{
 #if(${field.keyFlag})
 ## 主键
 ##  #if(!$null.isNull(${idType}) && "$!idType" != "")
-@TableId(value = "${field.annotationColumnName}", type = IdType.${idType})
+    @TableId(value = "${field.annotationColumnName}", type = IdType.${idType})
 ##  #else
 ##    @TableId("${field.annotationColumnName}")
 ##  #end
 ## 普通字段
 #elseif(${field.fill})
 ## -----   存在字段填充设置   -----
-  #if(${field.convert})
-    @TableField(value = "${field.annotationColumnName}", fill = FieldFill.${field.fill})
-  #else
-    @TableField(fill = FieldFill.${field.fill})
-  #end
+#if(${field.convert})
+@TableField(value = "${field.annotationColumnName}", fill = FieldFill.${field.fill})
+#else
+@TableField(fill = FieldFill.${field.fill})
+#end
 #elseif(${field.convert})
     @TableField("${field.annotationColumnName}")
 #end
