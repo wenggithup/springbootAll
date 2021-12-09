@@ -4,13 +4,20 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.weng.demo.business.entity.ImEnterpriseOrganization;
 import com.weng.demo.business.entity.OrderTest;
 import com.weng.demo.business.entity.TOrder;
+import com.weng.demo.business.entity.TOrder202101;
 import com.weng.demo.business.mapper.ImEnterpriseOrganizationMapper;
 import com.weng.demo.business.mapper.OrderTestMapper;
+import com.weng.demo.business.mapper.TOrder202101Mapper;
 import com.weng.demo.business.mapper.TOrderMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -29,6 +36,8 @@ public class ShardingJdbcController {
 
    @Autowired
    private OrderTestMapper orderMapper;
+   @Autowired
+   private TOrder202101Mapper tOrder202101Mapper;
 
     @GetMapping("/getShardingJdbcController")
     public String getShardingJdbcController(){
@@ -48,6 +57,21 @@ public class ShardingJdbcController {
         }
         return "success";
     }
+
+    @GetMapping("/insertIntervalShardingJdbcController")
+    public String insertIntervalShardingJdbcController() throws ParseException {
+        for (int i = 0; i < 10; i++) {
+            TOrder202101 tOrder = new TOrder202101();
+            tOrder.setName("this is test name："+i);
+            tOrder.setPrice(2*i);
+            DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            tOrder.setOrderTime(format.parse("2021-09-21 18:00:00"));
+
+            tOrder202101Mapper.insertTOrder(tOrder);
+        }
+        return "success";
+    }
+
 
     @GetMapping("/testDefaultShardingJdbcController")
     public String testDefaultShardingJdbcController(){
