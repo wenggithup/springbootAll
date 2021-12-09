@@ -2,15 +2,15 @@ package com.weng.demo.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.weng.demo.business.entity.ImEnterpriseOrganization;
+import com.weng.demo.business.entity.OrderTest;
 import com.weng.demo.business.entity.TOrder;
 import com.weng.demo.business.mapper.ImEnterpriseOrganizationMapper;
+import com.weng.demo.business.mapper.OrderTestMapper;
 import com.weng.demo.business.mapper.TOrderMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -26,6 +26,9 @@ public class ShardingJdbcController {
 
    @Autowired
    private ImEnterpriseOrganizationMapper imEnterpriseOrganizationMapper;
+
+   @Autowired
+   private OrderTestMapper orderMapper;
 
     @GetMapping("/getShardingJdbcController")
     public String getShardingJdbcController(){
@@ -49,15 +52,21 @@ public class ShardingJdbcController {
     @GetMapping("/testDefaultShardingJdbcController")
     public String testDefaultShardingJdbcController(){
         for (int i = 0; i < 10; i++) {
-            ImEnterpriseOrganization tOrder = new ImEnterpriseOrganization();
+            OrderTest tOrder = new OrderTest();
             //tOrder.setId(i+1234l);
-            tOrder.setOrgId("teshi");
-            tOrder.setOrgIds("this is orgIds");
+            //tOrder.setId("234");
+            tOrder.setRemark(1234);
 
 
 
-            imEnterpriseOrganizationMapper.insert(tOrder);
+            orderMapper.insert(tOrder);
         }
         return "success";
+    }
+
+    @GetMapping("/testGetDefaultShardingJdbcController")
+    public String testGetDefaultShardingJdbcController(){
+        List<ImEnterpriseOrganization> imEnterpriseOrganizations = imEnterpriseOrganizationMapper.selectList(new QueryWrapper<>());
+        return imEnterpriseOrganizations.toString();
     }
 }

@@ -46,7 +46,7 @@ public class CodeGenerator {
     private static final String PARENT_PACKAGE = "com.weng.demo";
 
     /** 数据库地址 */
-    private static final String URL = "jdbc:mysql://localhost:13306/test_demo?useUnicode=true&useSSL=false&characterEncoding=utf8&tinyInt1isBit=false";
+    private static final String URL = "jdbc:mysql://localhost:13306/test_demo2?useUnicode=true&useSSL=false&characterEncoding=utf8&tinyInt1isBit=false";
     private static final String USERNAME = "root";
     private static final String PASSWORD = "123456";
     private static final String DRIVER_NAME = "com.mysql.cj.jdbc.Driver";
@@ -285,11 +285,11 @@ public class CodeGenerator {
         strategy.setEntityLombokModel(true);
         // 使用链式设置对象属性
         strategy.setChainModel(true);
-        if ("0".equals(scanner("是否有逻辑删除字段(0-否,1-是)"))) {
+/*        if ("0".equals(scanner("是否有逻辑删除字段(0-否,1-是)"))) {
             strategy.setSuperEntityClass(BaseEntityNotLogic.class);
         } else {
             strategy.setSuperEntityClass(BaseEntity.class);
-        }
+        }*/
         // 不生成序列化
         strategy.setEntitySerialVersionUID(false);
         // 是否使用RestController风格

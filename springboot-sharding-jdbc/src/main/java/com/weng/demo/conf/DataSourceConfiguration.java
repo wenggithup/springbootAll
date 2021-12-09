@@ -1,12 +1,11 @@
 package com.weng.demo.conf;
 
-import com.baomidou.dynamic.datasource.DynamicRoutingDataSource;
+/*import com.baomidou.dynamic.datasource.DynamicRoutingDataSource;
 import com.baomidou.dynamic.datasource.provider.AbstractDataSourceProvider;
 import com.baomidou.dynamic.datasource.provider.DynamicDataSourceProvider;
 import com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DataSourceProperty;
 import com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceAutoConfiguration;
-import com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceProperties;
-import org.apache.shardingsphere.driver.jdbc.core.datasource.ShardingSphereDataSource;
+import com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceProperties;*/
 import org.apache.shardingsphere.driver.jdbc.unsupported.AbstractUnsupportedOperationDataSource;
 import org.apache.shardingsphere.spring.boot.SpringBootConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +15,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Primary;
 
-import javax.annotation.Resource;
 import javax.sql.DataSource;
 import java.util.Map;
 
@@ -27,13 +25,13 @@ import java.util.Map;
  * @Description: 整合多数据源，将sharding-jdbc的数据源交给动态数据源，使用时，只需要在对应mapper上加上@DS("数据源名称")即可
  */
 @Configuration
-@AutoConfigureBefore({DynamicDataSourceAutoConfiguration.class,
-        SpringBootConfiguration.class})
+//@AutoConfigureBefore({DynamicDataSourceAutoConfiguration.class,SpringBootConfiguration.class})
+@SuppressWarnings("all")
 public class DataSourceConfiguration {
-
-    /**
+/*
+    *//**
      * 分表数据源名称
-     */
+     *//*
     private static final String SHARDING_DATA_SOURCE_NAME = "gits_sharding";
 
     @Autowired
@@ -68,5 +66,5 @@ public class DataSourceConfiguration {
         dataSource.setP6spy(properties.getP6spy());
         dataSource.setSeata(properties.getSeata());
         return dataSource;
-    }
+    }*/
 }

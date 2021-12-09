@@ -1,6 +1,6 @@
 package com.weng.demo.business.mapper;
 
-import com.baomidou.dynamic.datasource.annotation.DS;
+//import com.baomidou.dynamic.datasource.annotation.DS;
 import com.weng.demo.business.entity.TOrder;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
@@ -10,7 +10,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author Wengchuanjie
  * @date 2021-12-08
  */
-@DS("gits_sharding")
+//@DS("gits_sharding")
 public interface TOrderMapper extends BaseMapper<TOrder> {
 
     void insertOrder(TOrder tOrder);
