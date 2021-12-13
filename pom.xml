@@ -27,6 +27,9 @@
         <shardingsphere-jdbc.version>5.0.0-alpha</shardingsphere-jdbc.version>
         <shardingsphere-jdbc-spring-boot.version>5.0.0-alpha</shardingsphere-jdbc-spring-boot.version>
         <dynamic-datasource-spring-boot.version>3.4.1</dynamic-datasource-spring-boot.version>
+        <!-- log4j版本 -->
+        <log4j.version>1.2.17</log4j.version>
+        <junit-test.version>4.12</junit-test.version>
     </properties>
 
     <description>SpringBoot父Pom(所有版本号及依赖声明)</description>
@@ -100,6 +103,20 @@
                 <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
                 <version>${dynamic-datasource-spring-boot.version}</version>
             </dependency>
+
+            <!--log4j日志-->
+            <dependency>
+                <groupId>log4j</groupId>
+                <artifactId>log4j</artifactId>
+                <version>${log4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit-test.version}</version>
+                <scope>test</scope>
+            </dependency>
+
         </dependencies>
 
     </dependencyManagement>
@@ -146,5 +163,6 @@
         <module>springboot-quickStart</module>
         <!--sharding jdbc-->
         <module>springboot-sharding-jdbc</module>
+        <module>log-facade-parent-demo</module>
     </modules>
 </project>
