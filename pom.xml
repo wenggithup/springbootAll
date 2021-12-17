@@ -90,13 +90,27 @@
                 <artifactId>shardingsphere-jdbc-core</artifactId>
                 <version>${shardingsphere-jdbc.version}</version>
             </dependency>
-
+            <!--sharding jdbc核心类-->
             <dependency>
                 <groupId>org.apache.shardingsphere</groupId>
                 <artifactId>shardingsphere-jdbc-core-spring-boot-starter</artifactId>
                 <version>${shardingsphere-jdbc-spring-boot.version}</version>
             </dependency>
 
+
+            <!--shardingsphere xa事务核心依赖 -->
+            <dependency>
+                <groupId>org.apache.shardingsphere</groupId>
+                <artifactId>shardingsphere-transaction-xa-core</artifactId>
+                <version>${shardingsphere-jdbc.version}</version>
+            </dependency>
+
+            <!-- shardingsphere 柔性事务 -->
+            <dependency>
+                <groupId>org.apache.shardingsphere</groupId>
+                <artifactId>shardingsphere-transaction-base-seata-at</artifactId>
+                <version>${shardingsphere-jdbc.version}</version>
+            </dependency>
             <!-- 多数据源依赖 -->
             <dependency>
                 <groupId>com.baomidou</groupId>

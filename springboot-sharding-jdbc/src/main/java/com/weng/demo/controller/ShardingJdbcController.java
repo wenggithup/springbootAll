@@ -9,6 +9,7 @@ import com.weng.demo.business.mapper.ImEnterpriseOrganizationMapper;
 import com.weng.demo.business.mapper.OrderTestMapper;
 import com.weng.demo.business.mapper.TOrder202101Mapper;
 import com.weng.demo.business.mapper.TOrderMapper;
+import com.weng.demo.business.service.ITOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -32,6 +33,9 @@ public class ShardingJdbcController {
     private TOrderMapper tOrder0Mapper;
 
    @Autowired
+   private ITOrderService itOrderService;
+
+   @Autowired
    private ImEnterpriseOrganizationMapper imEnterpriseOrganizationMapper;
 
    @Autowired
@@ -47,14 +51,7 @@ public class ShardingJdbcController {
 
     @GetMapping("/insertShardingJdbcController")
     public String insertShardingJdbcController(){
-        for (int i = 0; i < 10; i++) {
-            TOrder tOrder = new TOrder();
-            tOrder.setUserId(i+213);
-            tOrder.setAddressId(i+1231231);
-            tOrder.setStatus("this is status");
-
-            tOrder0Mapper.insertOrder(tOrder);
-        }
+        itOrderService.addOrder();
         return "success";
     }
 
