@@ -137,6 +137,7 @@
     </dependencyManagement>
 
     <build>
+        <defaultGoal>compile</defaultGoal>
         <pluginManagement>
             <plugins>
                 <!-- 编译阶段插件 -->
@@ -156,19 +157,17 @@
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
                     <version>${maven-springboot-plugin.version}</version>
-                    <executions>
+                    <!--<executions>
                         <execution>
                             <goals>
                                 <goal>repackage</goal>
                             </goals>
                         </execution>
-                    </executions>
+                    </executions>-->
                 </plugin>
-
             </plugins>
         </pluginManagement>
 
-        <defaultGoal>compile</defaultGoal>
     </build>
 
     <!-- 子模块声明 -->
