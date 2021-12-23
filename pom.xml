@@ -137,7 +137,6 @@
     </dependencyManagement>
 
     <build>
-        <defaultGoal>compile</defaultGoal>
         <pluginManagement>
             <plugins>
                 <!-- 编译阶段插件 -->
