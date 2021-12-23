@@ -28,7 +28,7 @@ public class TestLongInsertController {
         for (int i = 0; i < 10; i++) {
             list.add(l1);
         }
-        Map<String,List<ImEnterpriseOrganization>>  map = new HashMap<>();
+        Map<String,List<ImEnterpriseOrganization>>  map = new  HashMap<>();
 
         map.put("orgs",list);
         imEnterpriseOrganizationMapper.insetByMap(map);
