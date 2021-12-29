@@ -25,7 +25,7 @@ public class TOrderServiceImpl extends ServiceImpl<TOrderMapper, TOrder> impleme
 
     @Override
     @Transactional
-    @ShardingTransactionType(TransactionType.BASE)
+    @ShardingTransactionType(TransactionType.XA)
     public void addOrder() {
         for (int i = 0; i < 10000; i++) {
             TOrder tOrder = new TOrder();

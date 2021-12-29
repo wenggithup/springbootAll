@@ -1,5 +1,6 @@
 package com.weng.demo.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.weng.demo.business.entity.ImEnterpriseOrganization;
 import com.weng.demo.business.entity.OrderTest;
@@ -45,7 +46,7 @@ public class ShardingJdbcController {
 
     @GetMapping("/getShardingJdbcController")
     public String getShardingJdbcController(){
-        List<TOrder> tOrders = tOrder0Mapper.selectList(new QueryWrapper<>());
+        List<TOrder> tOrders = tOrder0Mapper.selectList(new QueryWrapper<TOrder>().lambda().orderByDesc(TOrder::getOrderId));
         return tOrders.toString();
     }
 
@@ -62,7 +63,7 @@ public class ShardingJdbcController {
             tOrder.setName("this is test name："+i);
             tOrder.setPrice(2*i);
             DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            tOrder.setOrderTime(format.parse("2021-09-21 18:00:00"));
+            tOrder.setOrderTime(format.parse("2021-10-21 18:00:00"));
 
             tOrder202101Mapper.insertTOrder(tOrder);
         }

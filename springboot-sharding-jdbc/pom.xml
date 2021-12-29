@@ -62,10 +62,10 @@
         </dependency>
 
         <!-- 柔性事务 -->
-        <dependency>
+<!--        <dependency>
             <groupId>org.apache.shardingsphere</groupId>
             <artifactId>shardingsphere-transaction-base-seata-at</artifactId>
-        </dependency>
+        </dependency>-->
 
 <!--        <dependency>
             <groupId>com.baomidou</groupId>
