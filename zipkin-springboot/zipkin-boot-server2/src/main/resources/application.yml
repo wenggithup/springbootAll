@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: sever2
+
+server:
+  port: 18882

@@ -1,0 +1,36 @@
+package com.weng.demo.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
+
+/**
+ * @DATE: 2022/1/11 10:34 上午
+ * @Author: ChuanJie.Weng
+ * @Email: wengchuanjie@vrvmail.com.cn
+ * @Description:
+ */
+@EnableAutoConfiguration
+@RestController
+public class Services2Controller {
+
+    private RestTemplate restTemplate;
+
+    @Autowired
+    Services2Controller(RestTemplateBuilder restTemplateBuilder) {
+        this.restTemplate = restTemplateBuilder.build();
+    }
+
+    @GetMapping(value = "/service2")
+    public String getService() {
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return "service2 sleep 100ms ->" + restTemplate.getForObject("http://localhost:18883/service3",String.class);
+    }
+}

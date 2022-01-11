@@ -14,7 +14,7 @@
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-
+        <brave.version>5.6.0</brave.version>
         <!-- 版本号声明 -->
         <spring-boot.version>2.3.2.RELEASE</spring-boot.version>
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
@@ -31,6 +31,9 @@
         <!-- log4j版本 -->
         <log4j.version>1.2.17</log4j.version>
         <junit-test.version>4.12</junit-test.version>
+        <!--zipkin服务器端-->
+        <zipkin.version>2.9.4</zipkin.version>
+        <zipkin.es.version>2.8.4</zipkin.es.version>
     </properties>
 
     <description>SpringBoot父Pom(所有版本号及依赖声明)</description>
@@ -40,7 +43,42 @@
 
 
     <dependencyManagement>
+
         <dependencies>
+
+            <dependency>
+                <groupId>io.zipkin.java</groupId>
+                <artifactId>zipkin-server</artifactId>
+                <version>${zipkin.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-starter-log4j2</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>io.zipkin.java</groupId>
+                <artifactId>zipkin-autoconfigure-ui</artifactId>
+                <scope>runtime</scope>
+                <version>${zipkin.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.zipkin.java</groupId>
+                <artifactId>zipkin-autoconfigure-storage-elasticsearch-http</artifactId>
+                <version>${zipkin.es.version}</version>
+                <optional>true</optional>
+            </dependency>
+
+
+            <!-- brave 依赖 -->
+            <dependency>
+                <groupId>io.zipkin.brave</groupId>
+                <artifactId>brave-bom</artifactId>
+                <version>${brave.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
 
             <!-- Spring Boot 依赖 -->
             <dependency>
@@ -179,5 +217,6 @@
         <!--sharding jdbc-->
         <module>springboot-sharding-jdbc</module>
         <module>log-facade-parent-demo</module>
+        <module>zipkin-springboot</module>
     </modules>
 </project>
