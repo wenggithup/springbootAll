@@ -218,5 +218,6 @@
         <module>springboot-sharding-jdbc</module>
         <module>log-facade-parent-demo</module>
         <module>zipkin-springboot</module>
+        <module>spring-container</module>
     </modules>
 </project>
