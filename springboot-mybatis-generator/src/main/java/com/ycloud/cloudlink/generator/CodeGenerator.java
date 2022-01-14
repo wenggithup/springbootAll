@@ -46,10 +46,10 @@ public class CodeGenerator {
     private static final String PARENT_PACKAGE = "com.weng.demo";
 
     /** 数据库地址 */
-    private static final String URL = "jdbc:mysql://localhost:13306/shard02?useUnicode=true&useSSL=false&characterEncoding=utf8&tinyInt1isBit=false";
-    private static final String USERNAME = "root";
-    private static final String PASSWORD = "123456";
-    private static final String DRIVER_NAME = "com.mysql.cj.jdbc.Driver";
+    private static final String URL = "jdbc:mysql://192.168.6.84:21306/IM_LOGIN?useUnicode=true&characterEncoding=utf8&verifyServerCertificate=true&useSSL=false";
+    private static final String USERNAME = "standard";
+    private static final String PASSWORD = "nzliMD9ZUp@JLesZ";
+    private static final String DRIVER_NAME = "com.mysql.jdbc.Driver";
     private static final DbType DB_TYPE = DbType.MYSQL;
 
     /** 读取控制台内容 */

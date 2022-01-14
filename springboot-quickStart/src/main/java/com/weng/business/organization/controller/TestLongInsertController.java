@@ -1,7 +1,10 @@
 package com.weng.business.organization.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.weng.business.organization.entity.ImEnterpriseOrganization;
+import com.weng.business.organization.entity.ImLockDevice;
 import com.weng.business.organization.mapper.ImEnterpriseOrganizationMapper;
+import com.weng.business.organization.mapper.ImLockDeviceMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,9 +24,12 @@ public class TestLongInsertController {
     @Autowired
     private ImEnterpriseOrganizationMapper imEnterpriseOrganizationMapper;
 
+    @Autowired
+    private ImLockDeviceMapper imLockDeviceMapper;
+
     @GetMapping("/testLongInsert")
     public String getTest(){
-        List<ImEnterpriseOrganization> list = new ArrayList<>();
+        /*List<ImEnterpriseOrganization> list = new ArrayList<>();
         ImEnterpriseOrganization l1 = new ImEnterpriseOrganization("123",new ArrayList<Long>(Arrays.asList(123213l,2132131l,21321534l,54335454l,6565858l)),"1");
         for (int i = 0; i < 10; i++) {
             list.add(l1);
@@ -31,8 +37,9 @@ public class TestLongInsertController {
         Map<String,List<ImEnterpriseOrganization>>  map = new  HashMap<>();
 
         map.put("orgs",list);
-        imEnterpriseOrganizationMapper.insetByMap(map);
-        return "success";
+//        imEnterpriseOrganizationMapper.insetByMap(map);*/
+        List<ImLockDevice> imLockDevices = imLockDeviceMapper.selectList(new QueryWrapper<>());
+        return imLockDevices.toString();
     }
 
 

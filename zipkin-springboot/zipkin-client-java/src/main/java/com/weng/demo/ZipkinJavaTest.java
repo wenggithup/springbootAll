@@ -4,6 +4,8 @@ package com.weng.demo;
 import brave.Span;
 import brave.Tracer;
 import brave.Tracing;
+import brave.propagation.CurrentTraceContext;
+import brave.propagation.ThreadLocalCurrentTraceContext;
 import com.sun.net.httpserver.Filter;
 import zipkin2.reporter.AsyncReporter;
 import zipkin2.reporter.Sender;
@@ -27,46 +29,65 @@ public class ZipkinJavaTest {
      * @param args
      */
     public static void main(String[] args) throws InterruptedException, IOException {
+       // for (int i = 0; i < 500; i++) {
+
+
         // 配置reporter，用于控制向zipkin发送span的频率
         //   (the dependency is io.zipkin.reporter2:zipkin-sender-okhttp3)
         Sender sender = OkHttpSender.create("http://192.168.6.84:9411/api/v2/spans");
+        //定义reporter，异步发送
         AsyncReporter spanReporter = AsyncReporter.create(sender);
 
+        CurrentTraceContext build = ThreadLocalCurrentTraceContext.newBuilder().build();
         // 创建一个你想在zipkin中看到的服务名称的跟踪组件
         Tracing tracing = Tracing.newBuilder()
-                .localServiceName("my-test-service")
+                .currentTraceContext(build)
+                //展示的服务名称
+                .localServiceName("====my-test-service-root====")
                 .spanReporter(spanReporter)
                 .build();
 
-        // 跟踪公开的可能需要的对象，最重要的时跟踪
+        // 创建trance 对象
         Tracer tracer = tracing.tracer();
 
-        // Failing to close resources can result in dropped spans! When tracing is no
-        // longer needed, close the components you made in reverse order. This might be
-        // a shutdown hook for some users.
+        if (null != tracer.currentSpan()){
+
+        }
+
+        // 定义span内容
         Span root = tracer.newTrace().name("root-encode")
                 .kind(SERVER).tag("POST","/serviceRoot").start();
 
+        root.finish();
+
+/*        spanReporter.close();
+        sender.close();*/
+    System.out.println(tracing.currentTraceContext());
+        tracing.close();
+
+
         Tracing tracingCld = Tracing.newBuilder()
-                .localServiceName("my-test-service-A")
+                .localServiceName("====my-test-service-child====")
                 .spanReporter(spanReporter)
+                .currentTraceContext(build)
                 .build();
         Tracer tracerA = tracingCld.tracer();
 
+        System.out.println(tracerA.currentSpan());
+        //定义父节点为root span
         Span span = tracerA.newChild(root.context()).kind(SERVER).tag("GET","/serviceA").name("encode").start();
-        sleep(500);
 
+        //定义父节点为 A pan
         Span span2 = tracerA.newChild(span.context()).kind(SERVER).tag("GET","/serviceA-A").name("encode-A-A").start();
         //sleep(500);
-        root.finish();
+
+
+
         span.finish();
         span2.finish();
-        tracingCld.close();
+        sleep(3000);
 
-        tracing.close();
-
-        spanReporter.close();
-        sender.close();
+        }
     }
 
-}
+//}

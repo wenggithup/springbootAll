@@ -21,7 +21,7 @@
         <mybatis-plus.version>3.4.1</mybatis-plus.version>
         <mybatis-plus-generator.version>3.4.0</mybatis-plus-generator.version>
         <velocity.version>2.2</velocity.version>
-        <mysql-connector.version>8.0.13</mysql-connector.version>
+        <mysql-connector.version>5.1.49</mysql-connector.version>
         <druid.version>1.1.22</druid.version>
         <maven-resources-plugin.version>3.2.0</maven-resources-plugin.version>
         <maven-springboot-plugin.version>2.2.6.RELEASE</maven-springboot-plugin.version>
