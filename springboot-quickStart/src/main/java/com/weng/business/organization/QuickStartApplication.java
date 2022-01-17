@@ -23,7 +23,7 @@ public class QuickStartApplication {
         SpringApplication.run(QuickStartApplication.class, args);
     }
 
-    @Autowired
+/*    @Autowired
     Params params;
     @PostConstruct
     void postConstruct(){
@@ -41,7 +41,7 @@ public class QuickStartApplication {
         //-Djavax.net.ssl.trustStorePassword="vrv123456" -Djavax.net.ssl.keyStoreType="JKS"
         //-DSecurity.KeyStore.Location="/Users/wengchuanjie/Develop/project/Only-weng/springBootProject/spring-boot-demo-parent/springboot-quickStart/config/keystore.jks.jks"
         //-DSecurity.KeyStore.Password="vrv123456"
-    }
+    }*/
 }
 
 
