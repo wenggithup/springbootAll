@@ -23,24 +23,18 @@ public class QuickStartApplication {
         SpringApplication.run(QuickStartApplication.class, args);
     }
 
-/*    @Autowired
-    Params params;
-    @PostConstruct
+
+/*    @PostConstruct
     void postConstruct(){
-        File trustStoreFilePath = new File(params.trustStorePath);
         String tsp = "/Users/wengchuanjie/Develop/project/Only-weng/springBootProject/spring-boot-demo-parent/springboot-quickStart/config/truststore.jks";
         System.setProperty("javax.net.ssl.trustStore", tsp);
-        System.setProperty("javax.net.ssl.trustStorePassword", params.trustStorePassword);
-        System.setProperty("javax.net.ssl.keyStoreType", params.defaultType);
-        File keyStoreFilePath = new File(params.keyStorePath);
+        System.setProperty("javax.net.ssl.trustStorePassword", "vrv123456");
+        System.setProperty("javax.net.ssl.keyStoreType", "JKS");
+
         String ksp = "/Users/wengchuanjie/Develop/project/Only-weng/springBootProject/spring-boot-demo-parent/springboot-quickStart/config/keystore.jks.jks;";
         System.setProperty("Security.KeyStore.Location", ksp);
-        System.setProperty("Security.KeyStore.Password", params.keyStorePassword);
+        System.setProperty("Security.KeyStore.Password", "vrv123456");
 
-        //-Djavax.net.ssl.trustStore="/Users/wengchuanjie/Develop/project/Only-weng/springBootProject/spring-boot-demo-parent/springboot-quickStart/config/truststore.jks"
-        //-Djavax.net.ssl.trustStorePassword="vrv123456" -Djavax.net.ssl.keyStoreType="JKS"
-        //-DSecurity.KeyStore.Location="/Users/wengchuanjie/Develop/project/Only-weng/springBootProject/spring-boot-demo-parent/springboot-quickStart/config/keystore.jks.jks"
-        //-DSecurity.KeyStore.Password="vrv123456"
     }*/
 }
 
