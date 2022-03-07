@@ -1,0 +1,17 @@
+spring:
+  profiles:
+    active: default
+
+  application:
+    name: elasticSearch
+    #es 配置
+  elasticsearch:
+    uris: http://192.168.6.84:21110
+    socket-timeout: 3000
+    connection-timeout: 500
+
+server:
+  port: 8200
+
+
+
