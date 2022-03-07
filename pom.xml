@@ -16,12 +16,12 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <brave.version>5.6.0</brave.version>
         <!-- 版本号声明 -->
-        <spring-boot.version>2.3.2.RELEASE</spring-boot.version>
+        <spring-boot.version>2.6.1</spring-boot.version>
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
         <mybatis-plus.version>3.4.1</mybatis-plus.version>
         <mybatis-plus-generator.version>3.4.0</mybatis-plus-generator.version>
         <velocity.version>2.2</velocity.version>
-        <mysql-connector.version>5.1.49</mysql-connector.version>
+        <mysql-connector.version>8.0.28</mysql-connector.version>
         <druid.version>1.1.22</druid.version>
         <maven-resources-plugin.version>3.2.0</maven-resources-plugin.version>
         <maven-springboot-plugin.version>2.2.6.RELEASE</maven-springboot-plugin.version>
@@ -34,6 +34,15 @@
         <!--zipkin服务器端-->
         <zipkin.version>2.9.4</zipkin.version>
         <zipkin.es.version>2.8.4</zipkin.es.version>
+        <jetcd.version>0.5.11</jetcd.version>
+        <elasticsearch.client.version>7.12.0</elasticsearch.client.version>
+        <hutool.version>2.16.2</hutool.version>
+
+
+
+
+        <!-- plugin 版本 -->
+        <dependency-check-maven.version>5.2.4</dependency-check-maven.version>
     </properties>
 
     <description>SpringBoot父Pom(所有版本号及依赖声明)</description>
@@ -45,6 +54,29 @@
     <dependencyManagement>
 
         <dependencies>
+            <dependency>
+                <groupId>com.xiaoleilu</groupId>
+                <artifactId>hutool</artifactId>
+                <version>${hutool.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.elasticsearch.client</groupId>
+                <artifactId>elasticsearch-rest-high-level-client</artifactId>
+                <version>${elasticsearch.client.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.elasticsearch</groupId>
+                <artifactId>elasticsearch</artifactId>
+                <version>${elasticsearch.client.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.etcd</groupId>
+                <artifactId>jetcd-core</artifactId>
+                <version>${jetcd.version}</version>
+            </dependency>
+
 
             <dependency>
                 <groupId>io.zipkin.java</groupId>
@@ -85,6 +117,12 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
                 <version>${spring-boot.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>mysql</groupId>
+                        <artifactId>mysql-connector-java</artifactId>
+                    </exclusion>
+                </exclusions>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -175,8 +213,36 @@
     </dependencyManagement>
 
     <build>
+        <plugins>
+            <plugin>
+                <groupId>org.owasp</groupId>
+                <artifactId>dependency-check-maven</artifactId>
+                <version>${dependency-check-maven.version}</version>
+                <configuration>
+                    <!-- 自动更新，生成的报告格式 -->
+                    <autoUpdate>true</autoUpdate>
+                    <format>ALL</format>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                        <configuration>
+                            <assemblyAnalyzerEnabled>false</assemblyAnalyzerEnabled>
+                            <nugetconfAnalyzerEnabled>false</nugetconfAnalyzerEnabled>
+                            <nuspecAnalyzerEnabled>false</nuspecAnalyzerEnabled>
+                            <retireJsUrl>
+                                https://cdn.jsdelivr.net/gh/Retirejs/retire.js@master/repository/jsrepository.json
+                            </retireJsUrl>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
         <pluginManagement>
             <plugins>
+
                 <!-- 编译阶段插件 -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -198,14 +264,19 @@
                         <execution>
                             <goals>
                                 <goal>repackage</goal>
+
                             </goals>
+
                         </execution>
+
                     </executions>
                 </plugin>
             </plugins>
         </pluginManagement>
 
     </build>
+
+
 
     <!-- 子模块声明 -->
     <modules>
@@ -219,5 +290,7 @@
         <module>log-facade-parent-demo</module>
         <module>zipkin-springboot</module>
         <module>spring-container</module>
+        <module>etcd-java-demo</module>
+        <module>springboot-thrity-plugin</module>
     </modules>
 </project>

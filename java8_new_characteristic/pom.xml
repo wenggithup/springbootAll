@@ -29,6 +29,7 @@
                 <artifactId>spring-boot-starter-test</artifactId>
                 <scope>test</scope>
             </dependency>
+
         </dependencies>
 
     <build>
@@ -42,6 +43,8 @@
     <modules>
         <module>java8-steam</module>
         <module>test_generic</module>
+        <module>java-spi</module>
+        <module>java-spi-impl</module>
     </modules>
 
 </project>

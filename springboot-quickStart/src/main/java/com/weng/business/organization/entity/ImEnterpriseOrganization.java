@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import org.springframework.context.annotation.Primary;
 
@@ -19,6 +20,7 @@ import java.util.List;
 @Data
 @Accessors(chain = true)
 @TableName("IM_ENTERPRISE_ORGANIZATION")
+@NoArgsConstructor
 @AllArgsConstructor
 public class ImEnterpriseOrganization  {
 

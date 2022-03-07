@@ -1,6 +1,8 @@
 package com.weng.business.organization.controller;
+import com.google.common.collect.Lists;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.google.protobuf.ByteString;
 import com.ibm.etcd.api.*;
 import com.ibm.etcd.client.ListenerObserver;
@@ -119,6 +121,23 @@ public class TestLongInsertController {
         return imLockDevices.toString();
     }
 
+
+    @GetMapping("/testInsertId")
+    public String testInsertId(){
+        ImEnterpriseOrganization enterpriseOrganization = new ImEnterpriseOrganization();
+        enterpriseOrganization.setOrgId("123");
+        enterpriseOrganization.setOrgIds(Lists.newArrayList());
+        enterpriseOrganization.setId("1468527688766472283");
+
+        try {
+            imEnterpriseOrganizationMapper.insert(enterpriseOrganization);
+
+        }catch (Exception e){
+            System.out.println(e.getClass());
+        }
+
+        return "success";
+    }
 
     public static void main(String[] args) {
  /*       ArrayList<Long> list = new ArrayList<>();

@@ -2,21 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.weng.business.organization.mapper.ImEnterpriseOrganizationMapper">
 
-    <insert id="insetByMap" parameterType="map">
+<!--    <insert id="insetByMap" parameterType="com.weng.business.organization.entity.ImEnterpriseOrganization">
         INSERT INTO
         IM_ENTERPRISE_ORGANIZATION(orgId,orgIds)
         VALUES
-        <foreach collection="orgs" item="org" open="" separator=","
-                 close="">
-            (#{org.orgId},
-            <if test="org.orgIds != null and org.orgIds.size()>0">
-                CONCAT("",
-                <foreach collection="org.orgIds" item="item" separator="-" open="'" close="'">
-                    ${item}
-                </foreach>
-                ,"")
-            </if>
-            )
-        </foreach>
-    </insert>
+
+    </insert>-->
 </mapper>
