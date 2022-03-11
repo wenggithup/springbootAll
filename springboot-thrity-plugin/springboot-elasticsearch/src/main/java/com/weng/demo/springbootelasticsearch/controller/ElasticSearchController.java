@@ -1,8 +1,13 @@
 package com.weng.demo.springbootelasticsearch.controller;
 
 import com.weng.demo.springbootelasticsearch.dto.DocumentAndType;
+import com.weng.demo.springbootelasticsearch.dto.SearchDocReq;
+import com.weng.demo.springbootelasticsearch.dto.SearchDocReqBuilder;
+import com.weng.demo.springbootelasticsearch.dto.TestSearchFeild;
 import com.weng.demo.springbootelasticsearch.queue.IndexQueue;
+import com.weng.demo.springbootelasticsearch.resp.EsDocResp;
 import com.weng.demo.springbootelasticsearch.service.CreateIndexService;
+import com.weng.demo.springbootelasticsearch.service.SearchIndexService;
 import org.apache.lucene.search.TotalHits;
 import org.elasticsearch.action.get.GetRequest;
 import org.elasticsearch.action.get.GetResponse;
@@ -36,6 +41,7 @@ public class ElasticSearchController {
     private final String INDEX_NAME="user_index_name";
 
     private final String TEST_INDEX_NAME = "weng_test_index_name";
+    private final String user_weng_index_name = "user_weng_index_name";
     @Autowired
     private RestHighLevelClient client;
 
@@ -44,6 +50,60 @@ public class ElasticSearchController {
 
     @Autowired
     private IndexQueue indexQueue;
+
+    @Autowired
+    private SearchIndexService searchIndexService;
+
+
+    @GetMapping("/testSearch")
+    public String testSearch(){
+        TestSearchFeild testSearchFeild = new TestSearchFeild();
+        testSearchFeild.setDescr("生产时间范围");
+
+        SearchDocReq build = new SearchDocReqBuilder().fieldClass(testSearchFeild).build();
+        List<EsDocResp> list = searchIndexService.searchDocByPage(EsDocResp.class, build, user_weng_index_name);
+        return list.toString();
+    }
+
+    /**
+     * 迁移数据
+     * @return
+     * @throws IOException
+     */
+    @GetMapping("/testDataMove")
+    public String testDataMove() throws IOException {
+
+        SearchRequest searchRequest = new SearchRequest();
+        searchRequest.indices(INDEX_NAME);
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+        //查询条件
+        QueryBuilder queryBuilder = new MatchAllQueryBuilder();
+        searchSourceBuilder.query(queryBuilder);
+
+        //显示总命中数
+        searchSourceBuilder.trackTotalHits(true);
+        //分页，最多一万条数据
+        searchSourceBuilder.from(1);
+        searchSourceBuilder.size(9999);
+        //设置超时时间
+        searchSourceBuilder.timeout(new TimeValue(1000));
+        searchRequest.source(searchSourceBuilder);
+
+        SearchResponse searchResponse = client.search(searchRequest, RequestOptions.DEFAULT);
+        SearchHits searchHits = searchResponse.getHits();
+        TotalHits totalHits = searchHits.getTotalHits();
+
+        System.out.println(totalHits.value);
+        SearchHit[] hits = searchResponse.getHits().getHits();
+        System.out.println(hits.length);
+        for (SearchHit hit : hits) {
+            Map<String, Object> sourceAsMap = hit.getSourceAsMap();
+            long [] userIdList = {1,3,4,5};
+            sourceAsMap.put("test_weng_daxia",userIdList);
+            createIndexService.createIndexByMap(sourceAsMap,TEST_INDEX_NAME);
+        }
+        return "success";
+    }
 
 
     @GetMapping("/testGetEs")
@@ -68,12 +128,7 @@ public class ElasticSearchController {
         System.out.println(totalHits.value);
         SearchHit[] hits = searchResponse.getHits().getHits();
         System.out.println(hits.length);
-        for (SearchHit hit : hits) {
-            Map<String, Object> sourceAsMap = hit.getSourceAsMap();
-            long [] userIdList = {1,3,4,5};
-            sourceAsMap.put("test_weng_daxia",userIdList);
-            createIndexService.createIndexByMap(sourceAsMap,TEST_INDEX_NAME);
-        }
+
 /*        for (int i = 0; i < 10; i++) {
             System.out.println("id :" + hits[i].getId()+"   value :"+hits[i].getSourceAsString());
         }*/
@@ -94,7 +149,8 @@ public class ElasticSearchController {
 
     @GetMapping("/testXBuilder")
     /**
-     * 创建全文索引
+     * 创建全文索引，根据field类型创建mapping
+     *
      */
     public String testXBuilder(){
         try {

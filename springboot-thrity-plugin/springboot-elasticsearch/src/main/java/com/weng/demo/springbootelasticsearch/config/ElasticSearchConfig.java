@@ -28,7 +28,10 @@ public class ElasticSearchConfig {
 
     private final String template_prefix = "weng_index_name";
 
-
+    /**
+     * 创建索引模板
+     * @throws IOException
+     */
     @PostConstruct
     public void initMapping() throws IOException {
     logger.info("init create mapping。。。。。");
