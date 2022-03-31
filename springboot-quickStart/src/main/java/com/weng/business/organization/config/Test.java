@@ -20,7 +20,6 @@ public class Test {
         getClientConnect();
     }
 
-    //TODO get address from toml
     private static void getClientConnect() {
         logger.debug("init etcd client start...");
         client=EtcdClient.forEndpoint("127.0.0.1",2379).build();
