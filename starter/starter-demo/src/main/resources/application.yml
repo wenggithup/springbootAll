@@ -1,0 +1,37 @@
+spring:
+  application:
+    name: serverFullSearch
+  main:
+    allow-circular-references: true
+
+management:
+  server:
+    port: 19902
+    address: 127.0.0.1
+vrv:
+  application: prometheus
+  registry:
+    # 注册中心模式
+    model: zookeeper
+    # zookeeper 注册中心配置
+    zookeeper:
+      address: 192.168.6.85:11100
+      namespace: /vrv/dubbo/service
+  # 消费者 配置 客户端
+  consumer:
+    # 关注的服务默认版本
+    followVersion: 1.0
+    # 关注的服务默认超时时间
+    followTimeout: 5000
+    # 关注的的服务端，启动后将自动初始化该服务客户端
+   # 提供者 配置 服务端
+
+  #普罗米修斯相关配置
+  promethenus:
+    registry:
+      zookeeper:
+        address: 192.168.6.81:11100
+        path: /abc
+
+    protocol:
+

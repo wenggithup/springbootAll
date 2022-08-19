@@ -1,0 +1,10 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.vrv.im.VrvPromethenusAutoConfig
+
+org.springframework.context.ApplicationListener=\
+com.vrv.im.listen.PromethenusListener
+org.springframework.context.ApplicationContextInitializer=\
+com.vrv.im.listen.PromethenusListener
+
+org.springframework.boot.env.EnvironmentPostProcessor=\
+com.vrv.im.listen.EnvironmentListener

@@ -1,8 +1,6 @@
 package com.weng.business.organization.controller;
 import com.google.common.collect.Lists;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.google.protobuf.ByteString;
 import com.ibm.etcd.api.*;
 import com.ibm.etcd.client.ListenerObserver;
@@ -10,14 +8,16 @@ import com.ibm.etcd.client.kv.KvClient;
 import com.ibm.etcd.client.kv.WatchUpdate;
 import com.weng.business.organization.config.Test;
 import com.weng.business.organization.entity.ImEnterpriseOrganization;
-import com.weng.business.organization.entity.ImLockDevice;
 import com.weng.business.organization.mapper.ImEnterpriseOrganizationMapper;
-import com.weng.business.organization.mapper.ImLockDeviceMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
+import java.lang.management.ManagementFactory;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -29,12 +29,11 @@ import java.util.stream.Collectors;
  * @Description:
  */
 @RestController
+
+@Slf4j
 public class TestLongInsertController {
     @Autowired
     private ImEnterpriseOrganizationMapper imEnterpriseOrganizationMapper;
-
-    @Autowired
-    private ImLockDeviceMapper imLockDeviceMapper;
 
     private KvClient kvClient;
 
@@ -108,6 +107,7 @@ public class TestLongInsertController {
 
     @GetMapping("/testLongInsert")
     public String getTest(){
+        log.info("into get test....");
         /*List<ImEnterpriseOrganization> list = new ArrayList<>();
         ImEnterpriseOrganization l1 = new ImEnterpriseOrganization("123",new ArrayList<Long>(Arrays.asList(123213l,2132131l,21321534l,54335454l,6565858l)),"1");
         for (int i = 0; i < 10; i++) {
@@ -117,10 +117,30 @@ public class TestLongInsertController {
 
         map.put("orgs",list);
 //        imEnterpriseOrganizationMapper.insetByMap(map);*/
-        List<ImLockDevice> imLockDevices = imLockDeviceMapper.selectList(new QueryWrapper<>());
-        return imLockDevices.toString();
-    }
+        long l = System.currentTimeMillis();
 
+        List<ImEnterpriseOrganization> list = imEnterpriseOrganizationMapper.selectList();
+        log.info("test user time :{}",System.currentTimeMillis()-l);
+        return "success";
+    }
+    @GetMapping("/testLongInsert1")
+    public String getTest1(){
+        log.info("into get test....");
+        /*List<ImEnterpriseOrganization> list = new ArrayList<>();
+        ImEnterpriseOrganization l1 = new ImEnterpriseOrganization("123",new ArrayList<Long>(Arrays.asList(123213l,2132131l,21321534l,54335454l,6565858l)),"1");
+        for (int i = 0; i < 10; i++) {
+            list.add(l1);
+        }
+        Map<String,List<ImEnterpriseOrganization>>  map = new  HashMap<>();
+
+        map.put("orgs",list);
+//        imEnterpriseOrganizationMapper.insetByMap(map);*/
+        long l = System.currentTimeMillis();
+
+        Integer integer = imEnterpriseOrganizationMapper.selectCount();
+        log.info("test user time :{}",System.currentTimeMillis()-l);
+        return "success";
+    }
 
     @GetMapping("/testInsertId")
     public String testInsertId(){
@@ -130,10 +150,20 @@ public class TestLongInsertController {
         enterpriseOrganization.setId("1468527688766472283");
 
         try {
-            imEnterpriseOrganizationMapper.insert(enterpriseOrganization);
+//            imEnterpriseOrganizationMapper.insert(enterpriseOrganization);
 
         }catch (Exception e){
-            System.out.println(e.getClass());
+            StackTraceElement[] trace = e.getStackTrace();
+            for (int i = 0; i < trace.length; i++) {
+                String className = trace[i].getClassName();
+                String methodName = trace[i].getMethodName();
+                int lineNumber = trace[i].getLineNumber();
+                String fileName = trace[i].getFileName();
+                if (className.contains("com.weng.business")) {
+                    System.out.println("className :" + className + "   methodName :" + methodName + "   lineNumber :" + lineNumber + "  fileName :" + fileName);
+                }
+            }
+            System.out.println(e.getMessage());
         }
 
         return "success";
@@ -153,7 +183,28 @@ public class TestLongInsertController {
         String oldStr = new String("this is safe");
         String s = newStr.replaceFirst(newStr, oldStr);
         System.out.println(s);*/
-        System.out.println("1".getBytes().length);
+            System.out.println("1".getBytes().length);
+            String name = ManagementFactory.getRuntimeMXBean().getName();
+            System.out.println(name);
+            // get pid
+            String pid = name.split("@")[0];
+            System.out.println("Pid is:" + pid);
+            try {
+                int  x = 1/0;
 
-    }
+            } catch (Exception e) {
+
+                StackTraceElement[] trace = e.getStackTrace();
+                for (int i = 0; i < trace.length; i++) {
+                    String className = trace[i].getClassName();
+                    String methodName = trace[i].getMethodName();
+                    int lineNumber = trace[i].getLineNumber();
+                    String fileName = trace[i].getFileName();
+                    System.out.println("className :" + className + "   methodName :" + methodName + "   lineNumber :" + lineNumber + "  fileName :" + fileName);
+
+                }
+            }
+        }
+
+
 }

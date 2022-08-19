@@ -43,13 +43,13 @@ public class CodeGenerator {
      * 生成的 Entity、Mapper、Service、Impl 都会位于该包下),包不存在会自动创建 <p>
      * 生成的 xml 文件会在 resources/mapper 文件夹下
      */
-    private static final String PARENT_PACKAGE = "com.weng.demo";
+    private static final String PARENT_PACKAGE = "com.weng.business";
 
     /** 数据库地址 */
-    private static final String URL = "jdbc:mysql://192.168.6.84:21306/IM_LOGIN?useUnicode=true&characterEncoding=utf8&verifyServerCertificate=true&useSSL=false";
-    private static final String USERNAME = "standard";
-    private static final String PASSWORD = "nzliMD9ZUp@JLesZ";
-    private static final String DRIVER_NAME = "com.mysql.jdbc.Driver";
+    private static final String URL = "jdbc:mysql://192.168.0.81:11306/IM_DBCONFIG?useUnicode=true&characterEncoding=utf8&verifyServerCertificate=true&useSSL=false";
+    private static final String USERNAME = "jgz81";
+    private static final String PASSWORD = "mPzwiCXiUeD!ZU%2";
+    private static final String DRIVER_NAME = "com.mysql.cj.jdbc.Driver";
     private static final DbType DB_TYPE = DbType.MYSQL;
 
     /** 读取控制台内容 */

@@ -1,0 +1,5 @@
+#-------starter自动装配---------
+#org.springframework.context.ApplicationListener=\
+#com.weng.demo.listener.MyCustomizeListener
+org.springframework.context.ApplicationContextAware=\
+com.weng.demo.listener.MyCustomizeListener

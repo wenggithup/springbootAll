@@ -1,5 +1,7 @@
 package com.demo.weng.generic;
 
+import java.lang.reflect.Field;
+
 /**
  * @DATE: 2021/11/12 9:37 上午
  * @Author: ChuanJie.Weng
@@ -43,9 +45,19 @@ public class GenericClass<k> {
     }
 
     public static  <T> T showClass(Class<T> tClass) throws IllegalAccessException, InstantiationException {
-        T t = tClass.newInstance();
-        System.out.println(t.toString());
-        return t;
+        //字段
+        Field[] declaredFields = tClass.getDeclaredFields();
+        //接口
+        Class<?>[] interfaces = tClass.getInterfaces();
+
+        for (Class<?> anInterface : interfaces) {
+            System.out.println(anInterface.getName());
+        }
+        for (Field declaredField : declaredFields) {
+
+            System.out.println(declaredField.getName());
+        }
+        return tClass.newInstance();
 
     }
 }

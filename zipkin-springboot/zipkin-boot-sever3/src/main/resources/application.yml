@@ -1,6 +1,0 @@
-spring:
-  application:
-    name: sever3
-
-server:
-  port: 18883

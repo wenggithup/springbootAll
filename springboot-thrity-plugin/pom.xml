@@ -60,5 +60,8 @@
     <modules>
         <module>springboot-elasticsearch</module>
         <module>springboot-redis</module>
+        <module>spring-boot-kafka</module>
+        <module>etcd-java-demo</module>
+        <module>springboot-event</module>
     </modules>
 </project>

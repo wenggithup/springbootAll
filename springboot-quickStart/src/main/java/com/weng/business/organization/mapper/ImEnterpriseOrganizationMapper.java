@@ -1,7 +1,8 @@
 package com.weng.business.organization.mapper;
 
+
 import com.weng.business.organization.entity.ImEnterpriseOrganization;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 import java.util.Map;
@@ -12,7 +13,10 @@ import java.util.Map;
  * @author wengchuanjie
  * @date 2021-11-21
  */
-public interface ImEnterpriseOrganizationMapper extends BaseMapper<ImEnterpriseOrganization> {
+@Mapper
+public interface ImEnterpriseOrganizationMapper {
 
-    void insetByMap(Map<String, List<ImEnterpriseOrganization>> map);
+    List<ImEnterpriseOrganization> selectList();
+
+    Integer selectCount();
 }

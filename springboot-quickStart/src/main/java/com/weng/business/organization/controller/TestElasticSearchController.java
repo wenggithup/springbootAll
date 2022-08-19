@@ -1,5 +1,6 @@
 package com.weng.business.organization.controller;
 
+import org.apache.ibatis.session.SqlSession;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.client.indices.GetIndexRequest;
@@ -8,7 +9,9 @@ import org.elasticsearch.cluster.metadata.MappingMetadata;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
+import javax.annotation.Resource;
 import java.io.IOException;
 import java.util.Map;
 
@@ -24,9 +27,10 @@ public class TestElasticSearchController {
     @Autowired
     private RestHighLevelClient restHighLevelClient;
 
+
     @GetMapping("/testGetEs")
     public String testGetEs() throws IOException {
-        GetIndexRequest indexRequest = new GetIndexRequest("user_index_name");
+/*        GetIndexRequest indexRequest = new GetIndexRequest("user_index_name");
         GetIndexResponse getIndexResponse = restHighLevelClient.indices().get(indexRequest, RequestOptions.DEFAULT);
 
         Map<String, String> dataStreams = getIndexResponse.getDataStreams();
@@ -42,8 +46,13 @@ public class TestElasticSearchController {
         }
 
 
-        System.out.println(getIndexResponse.toString());
+        System.out.println(getIndexResponse.toString());*/
         return "success";
     }
+
+//    @GetMapping("/testRestTemplate")
+//    public String testRestTemplate(){
+//        restTemplate.postForEntity("localhost:9011/quickStart/testGetEs",)
+//    }
 
 }

@@ -1,0 +1,2 @@
+server-promethenus-filter=com.vrv.im.filter.ServerFilter
+client-promethenus-filter=com.vrv.im.filter.ClientFilter

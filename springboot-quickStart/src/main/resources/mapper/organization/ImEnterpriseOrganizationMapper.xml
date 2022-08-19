@@ -8,4 +8,10 @@
         VALUES
 
     </insert>-->
+    <select id="selectList" resultType="com.weng.business.organization.entity.ImEnterpriseOrganization">
+        select * from  IM_ENTERPRISE_ORGANIZATION
+    </select>
+    <select id="selectCount" resultType="java.lang.Integer">
+        select count(*) from IM_ENTERPRISE_ORGANIZATION
+    </select>
 </mapper>

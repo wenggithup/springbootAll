@@ -1,8 +1,4 @@
 package com.weng.business.organization.entity;
-
-import com.baomidou.mybatisplus.annotation.TableName;
-
-import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,15 +15,12 @@ import java.util.List;
  */
 @Data
 @Accessors(chain = true)
-@TableName("IM_ENTERPRISE_ORGANIZATION")
 @NoArgsConstructor
 @AllArgsConstructor
 public class ImEnterpriseOrganization  {
 
-    @TableField("orgId")
     private String orgId;
 
-    @TableField("orgIds")
     private List<Long> orgIds;
 
     private String id;
