@@ -28,7 +28,7 @@ public class IndexQueue {
     private final BlockingQueue<DocumentAndType> createQueue = new LinkedBlockingDeque<>();
     private final BlockingQueue<DocumentAndType> updateQueue = new LinkedBlockingDeque<>();
 
-    public final static int BULK_CREATE_INDEX_SIZE=100;//批量建立全文检索，每次批量提交的数量
+    public final static int BULK_CREATE_INDEX_SIZE = 100;//批量建立全文检索，每次批量提交的数量
 
     private final CreateIndexService createIndex;
     private final UpdateIndexService updateIndex;
@@ -45,6 +45,7 @@ public class IndexQueue {
 
     /**
      * 添加索引至阻塞队列中
+     *
      * @param doc
      * @param indexType
      * @param indexName
@@ -72,6 +73,7 @@ public class IndexQueue {
 
     /**
      * 添加更新索引队列
+     *
      * @param builder
      * @param docList
      * @param indexType

@@ -13,6 +13,7 @@ import java.util.List;
 public interface UpdateIndexService {
     /**
      * 创建单条索引
+     *
      * @param documentAndType
      */
     void updateIndex(DocumentAndType documentAndType);
@@ -20,6 +21,7 @@ public interface UpdateIndexService {
 
     /**
      * 批量创建索引
+     *
      * @param documentAndType
      */
     void updateBulkIndex(List<DocumentAndType> documentAndType);

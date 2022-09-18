@@ -1,5 +1,6 @@
 package com.weng.business.organization.controller;
 
+import com.weng.business.organization.service.impl.DemoImpl;
 import org.apache.ibatis.session.SqlSession;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
@@ -47,7 +48,9 @@ public class TestElasticSearchController {
 
 
         System.out.println(getIndexResponse.toString());*/
-        return "success";
+
+        DemoImpl demo = new DemoImpl();
+        return demo.testDemoImpl();
     }
 
 //    @GetMapping("/testRestTemplate")

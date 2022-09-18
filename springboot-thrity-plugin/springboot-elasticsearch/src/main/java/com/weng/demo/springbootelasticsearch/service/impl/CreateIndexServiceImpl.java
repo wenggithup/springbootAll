@@ -40,7 +40,7 @@ public class CreateIndexServiceImpl implements CreateIndexService {
         String indexName = documentAndType.getIndexName();
 
         try {
-            addDoc(indexName,doc,docId);
+            addDoc(indexName, doc, docId);
         } catch (IOException e) {
             logger.debug("create index error");
         }
@@ -74,7 +74,7 @@ public class CreateIndexServiceImpl implements CreateIndexService {
     @Override
     public void createBulkIndexByMap(List<Map<String, Object>> list, String indexName) {
         try {
-            addDocBulkByMap(list,indexName);
+            addDocBulkByMap(list, indexName);
         } catch (Exception e) {
             logger.debug("bulk create index by map error...");
         }
@@ -82,13 +82,13 @@ public class CreateIndexServiceImpl implements CreateIndexService {
 
     private void addDocBulkByMap(List<Map<String, Object>> list, String indexName) throws IOException {
         BulkRequest bulkRequest = new BulkRequest();
-        if (CollectionUtil.isNotEmpty(list)){
+        if (CollectionUtil.isNotEmpty(list)) {
             for (Map<String, Object> objectMap : list) {
                 IndexRequest indexRequest;
-                String id =(String) objectMap.get("id");
-                if (null != id){
+                String id = (String) objectMap.get("id");
+                if (null != id) {
                     indexRequest = new IndexRequest().id(id).index(indexName).source(objectMap);
-                }else {
+                } else {
                     indexRequest = new IndexRequest().index(indexName).source(objectMap);
                 }
                 bulkRequest.add(indexRequest);
@@ -102,34 +102,34 @@ public class CreateIndexServiceImpl implements CreateIndexService {
 
     /**
      * 通过kv添加索引
+     *
      * @param map
      * @param indexName
      */
     private void addDocByMap(Map<String, Object> map, String indexName) throws IOException {
         IndexRequest indexRequest;
-        String id =(String) map.get("id");
-        if (null != id){
+        String id = (String) map.get("id");
+        if (null != id) {
             indexRequest = new IndexRequest().id(id).index(indexName).source(map);
-        }else {
+        } else {
             indexRequest = new IndexRequest().index(indexName).source(map);
         }
         esClient.index(indexRequest, RequestOptions.DEFAULT);
     }
 
 
-
-
     /**
      * 添加索引
+     *
      * @param indexName
      * @param doc
      * @param docId
      */
     private void addDoc(String indexName, XContentBuilder doc, String docId) throws IOException {
         IndexRequest request;
-        if (StrUtil.isNotBlank(docId)){
+        if (StrUtil.isNotBlank(docId)) {
             request = new IndexRequest(indexName).id(docId).source(doc);
-        }else {
+        } else {
             request = new IndexRequest(indexName).source(doc);
         }
         esClient.index(request, RequestOptions.DEFAULT);
@@ -137,9 +137,9 @@ public class CreateIndexServiceImpl implements CreateIndexService {
     }
 
 
-
     /**
      * 批量添加索引
+     *
      * @param list
      */
     private void bulkAddDoc(List<DocumentAndType> list) throws IOException {
@@ -151,15 +151,15 @@ public class CreateIndexServiceImpl implements CreateIndexService {
             String docId = documentAndType.getDocID();
             String indexName = documentAndType.getIndexName();
 
-            if (StrUtil.isNotBlank(docId)){
+            if (StrUtil.isNotBlank(docId)) {
                 indexRequest = new IndexRequest(indexName).id(docId).source(doc);
-            }else {
+            } else {
                 indexRequest = new IndexRequest(indexName).source(doc);
             }
             bulkRequest.add(indexRequest);
         }
 
-        esClient.bulk(bulkRequest,RequestOptions.DEFAULT);
+        esClient.bulk(bulkRequest, RequestOptions.DEFAULT);
 
         logger.debug("#BulkAddDoc is ok cost time is " + (System.currentTimeMillis() - tim) + ".................... ");
     }

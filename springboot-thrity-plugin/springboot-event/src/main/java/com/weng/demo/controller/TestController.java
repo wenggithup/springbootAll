@@ -22,14 +22,17 @@ import javax.annotation.Resource;
 public class TestController {
     @Resource
     MyCustomizeListener myCustomizeListener;
+
     @PostConstruct
-    public void init(){
+    public void init() {
         myCustomizeListener.setStr("213123");
     }
+
     @Resource
     private ApplicationContext producer;
+
     @GetMapping("/testEvent")
-    public void testEvent(){
+    public void testEvent() {
         producer.publishEvent(new MyCustomizeEvent("123123"));
     }
 }

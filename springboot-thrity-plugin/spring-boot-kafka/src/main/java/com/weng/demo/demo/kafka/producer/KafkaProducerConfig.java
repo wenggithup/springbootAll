@@ -14,11 +14,12 @@ import java.util.Properties;
  */
 public class KafkaProducerConfig {
     public static KafkaProducer<Long, String> producer;
-    public KafkaProducerConfig(KafkaSettings settings){
-        if (producer ==null){
-            synchronized (this){
-            if (producer ==null) {
-                this.producer = initKafka(settings);
+
+    public KafkaProducerConfig(KafkaSettings settings) {
+        if (producer == null) {
+            synchronized (this) {
+                if (producer == null) {
+                    this.producer = initKafka(settings);
                 }
             }
         }

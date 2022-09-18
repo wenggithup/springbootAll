@@ -14,7 +14,7 @@ import java.util.Set;
  */
 @Data
 public class EndpointsProperties {
-    private String basePath = "/vrvActuator" ;
+    private String basePath = "/vrvActuator";
 
     private String baseExposePath = "/prometheus";
 

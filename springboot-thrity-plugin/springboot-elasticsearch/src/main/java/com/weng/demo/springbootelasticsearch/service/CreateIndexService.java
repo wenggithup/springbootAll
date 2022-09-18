@@ -14,6 +14,7 @@ import java.util.Map;
 public interface CreateIndexService {
     /**
      * 创建单条索引
+     *
      * @param documentAndType
      */
     void createIndexByXBuilder(DocumentAndType documentAndType);
@@ -21,6 +22,7 @@ public interface CreateIndexService {
 
     /**
      * 批量创建索引
+     *
      * @param documentAndType
      */
     void createBulkIndexXBuilder(List<DocumentAndType> documentAndType);

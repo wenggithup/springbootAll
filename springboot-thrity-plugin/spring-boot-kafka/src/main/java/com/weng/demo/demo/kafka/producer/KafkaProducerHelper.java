@@ -15,20 +15,20 @@ import org.apache.kafka.clients.producer.ProducerRecord;
 public class KafkaProducerHelper implements IKafkaProducer {
     private KafkaProducer<Long, String> producer = KafkaProducerConfig.producer;
 
-    public KafkaProducerHelper(){
+    public KafkaProducerHelper() {
 
     }
 
 
     @Override
-    public void push(KafkaMessage kafkaMessage,KafkaCallBack kafkaCallBack) {
+    public void push(KafkaMessage kafkaMessage, KafkaCallBack kafkaCallBack) {
         String topic = kafkaMessage.getTopic();
-        if (null != topic && "" !=topic) {
+        if (null != topic && "" != topic) {
             ProducerRecord<Long, String> record = new ProducerRecord<Long, String>(topic, kafkaMessage.getData());
             //设置回调
-            if (null != kafkaCallBack){
-            producer.send(record,(d,e)->kafkaCallBack.callback(d,e));
-            }else {
+            if (null != kafkaCallBack) {
+                producer.send(record, (d, e) -> kafkaCallBack.callback(d, e));
+            } else {
                 producer.send(record);
             }
 
@@ -38,11 +38,12 @@ public class KafkaProducerHelper implements IKafkaProducer {
 
     /**
      * 无回调推送消息
+     *
      * @param kafkaMessage
      */
     @Override
     public void push(KafkaMessage kafkaMessage) {
-        this.push(kafkaMessage,null);
+        this.push(kafkaMessage, null);
     }
 
 

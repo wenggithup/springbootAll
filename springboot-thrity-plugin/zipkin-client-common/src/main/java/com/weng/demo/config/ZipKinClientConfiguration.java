@@ -35,6 +35,7 @@ import javax.servlet.Filter;
  * @Email: wengchuanjie@vrvmail.com.cn
  * @Description:
  */
+
 /**
  * 针对mvc controller 和 restTemplate 的 zipkin客户端配置
  */
@@ -73,19 +74,25 @@ public class ZipKinClientConfiguration implements WebMvcConfigurer {
                 .spanReporter(spanReporter()).build();
     }
 
-    /** 注入可定制的Span */
+    /**
+     * 注入可定制的Span
+     */
     @Bean
     SpanCustomizer spanCustomizer(Tracing tracing) {
         return CurrentSpanCustomizer.create(tracing);
     }
 
-    /** 决定如何命名和标记span。 默认情况下，它们的名称与http方法相同 */
+    /**
+     * 决定如何命名和标记span。 默认情况下，它们的名称与http方法相同
+     */
     @Bean
     HttpTracing httpTracing(Tracing tracing) {
         return HttpTracing.create(tracing);
     }
 
-    /** 导入过滤器，该过滤器中会为http请求创建span */
+    /**
+     * 导入过滤器，该过滤器中会为http请求创建span
+     */
     @Bean
     Filter tracingFilter(HttpTracing httpTracing) {
         return TracingFilter.create(httpTracing);
@@ -98,7 +105,8 @@ public class ZipKinClientConfiguration implements WebMvcConfigurer {
     RestTemplateCustomizer useTracedHttpClient(HttpTracing httpTracing) {
         final CloseableHttpClient httpClient = TracingHttpClientBuilder.create(httpTracing).build();
         return new RestTemplateCustomizer() {
-            @Override public void customize(RestTemplate restTemplate) {
+            @Override
+            public void customize(RestTemplate restTemplate) {
                 restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory(httpClient));
             }
         };
@@ -107,7 +115,9 @@ public class ZipKinClientConfiguration implements WebMvcConfigurer {
     @Autowired
     SpanCustomizingAsyncHandlerInterceptor webMvcTracingCustomizer;
 
-    /** 使用应用程序定义的Web标记装饰服务器span */
+    /**
+     * 使用应用程序定义的Web标记装饰服务器span
+     */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(webMvcTracingCustomizer);

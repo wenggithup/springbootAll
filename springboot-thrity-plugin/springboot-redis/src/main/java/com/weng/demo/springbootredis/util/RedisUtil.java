@@ -20,6 +20,7 @@ public class RedisUtil {
 
     @Autowired
     private RedisTemplate redisTemplate;
+
     /**
      * 给一个指定的 key 值附加过期时间
      *
@@ -30,6 +31,7 @@ public class RedisUtil {
     public boolean expire(String key, long time) {
         return redisTemplate.expire(key, time, TimeUnit.SECONDS);
     }
+
     /**
      * 根据key 获取过期时间
      *
@@ -39,6 +41,7 @@ public class RedisUtil {
     public long getTime(String key) {
         return redisTemplate.getExpire(key, TimeUnit.SECONDS);
     }
+
     /**
      * 根据key 获取过期时间
      *
@@ -48,6 +51,7 @@ public class RedisUtil {
     public boolean hasKey(String key) {
         return redisTemplate.hasKey(key);
     }
+
     /**
      * 移除指定key 的过期时间
      *
@@ -85,6 +89,7 @@ public class RedisUtil {
     public void set(String key, long value) {
         redisTemplate.opsForValue().set(key, value);
     }
+
     /**
      * 将值放入缓存并设置时间
      *

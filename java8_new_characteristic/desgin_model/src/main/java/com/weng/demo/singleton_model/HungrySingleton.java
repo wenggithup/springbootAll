@@ -1,4 +1,4 @@
-package com.weng.demo.singleton;
+package com.weng.demo.singleton_model;
 
 /**
  * @DATE: 2022/8/14 2:48 下午

@@ -23,7 +23,7 @@ import java.util.List;
  */
 @Service
 public class UpdateIndexServiceImpl implements UpdateIndexService {
-    private final  static Logger logger = LoggerFactory.getLogger(UpdateIndexServiceImpl.class);
+    private final static Logger logger = LoggerFactory.getLogger(UpdateIndexServiceImpl.class);
 
 
     private final RestHighLevelClient esClient;
@@ -40,7 +40,7 @@ public class UpdateIndexServiceImpl implements UpdateIndexService {
         String indexName = documentAndType.getIndexName();
         XContentBuilder doc = documentAndType.getDoc();
 
-        UpdateRequest updateRequest = new UpdateRequest(indexName, docId );
+        UpdateRequest updateRequest = new UpdateRequest(indexName, docId);
         updateRequest.doc(doc);
         updateRequest.setRefreshPolicy(WriteRequest.RefreshPolicy.IMMEDIATE);
         try {
@@ -53,7 +53,7 @@ public class UpdateIndexServiceImpl implements UpdateIndexService {
 
     @Override
     public void updateBulkIndex(List<DocumentAndType> documentAndType) {
-       BulkRequest bulkRequest = new BulkRequest();
+        BulkRequest bulkRequest = new BulkRequest();
         long tim = System.currentTimeMillis();
         try {
             for (DocumentAndType doc : documentAndType) {

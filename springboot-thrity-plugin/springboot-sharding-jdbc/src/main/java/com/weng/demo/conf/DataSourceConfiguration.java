@@ -6,6 +6,7 @@ import com.baomidou.dynamic.datasource.provider.DynamicDataSourceProvider;
 import com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DataSourceProperty;
 import com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceAutoConfiguration;
 import com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceProperties;*/
+
 import org.apache.shardingsphere.driver.jdbc.unsupported.AbstractUnsupportedOperationDataSource;
 import org.apache.shardingsphere.spring.boot.SpringBootConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +29,8 @@ import java.util.Map;
 //@AutoConfigureBefore({DynamicDataSourceAutoConfiguration.class,SpringBootConfiguration.class})
 @SuppressWarnings("all")
 public class DataSourceConfiguration {
-/*
-    *//**
+    /*
+     *//**
      * 分表数据源名称
      *//*
     private static final String SHARDING_DATA_SOURCE_NAME = "gits_sharding";

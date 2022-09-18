@@ -1,0 +1,3 @@
+com.weng.demo.proxy_model.dynamic_proxy.jdk.impl.OneMethodInvokeImpl
+com.weng.demo.proxy_model.dynamic_proxy.jdk.impl.TwoMethodInvokeImpl
+com.weng.demo.proxy_model.dynamic_proxy.jdk.impl.ThreeMethodInvokeImpl

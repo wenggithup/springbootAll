@@ -15,8 +15,10 @@
         <!-- 打包时跳过测试类,此方式会编译测试用例 -->
         <skipTests>true</skipTests>
         <!-- 当前模块的主启动类 -->
-        <start-class>com.weng.business.organization.QuickStartApplication</start-class>
         <zookeeper.version>3.6.3</zookeeper.version>
+        <proguard.version>7.1.1</proguard.version>
+        <proguard.maven.plugin.version>2.5.1</proguard.maven.plugin.version>
+
     </properties>
     <dependencies>
         <dependency>
@@ -25,9 +27,20 @@
         </dependency>
 
         <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aop</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aspects</artifactId>
+        </dependency>
+<!--
+        <dependency>
             <groupId>org.elasticsearch</groupId>
             <artifactId>elasticsearch</artifactId>
         </dependency>
+-->
 
         <!-- MySql驱动依赖 -->
         <dependency>
@@ -56,6 +69,11 @@
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis</artifactId>
             <version>3.5.7</version>
+        </dependency>
+        <dependency>
+            <groupId>com.weng.demo</groupId>
+            <artifactId>spring-boot-mybatis</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.mybatis</groupId>
@@ -118,65 +136,144 @@
             <artifactId>slf4j-reload4j</artifactId>
             <version>1.7.36</version>
         </dependency>
+        <!--使用6.0.2版本来混淆-->
+<!--        <dependency>
+            <groupId>net.sf.proguard</groupId>
+            <artifactId>proguard-base</artifactId>
+            <version>6.0.3</version>
+            <scope>runtime</scope>
+        </dependency>-->
+
+        <dependency>
+            <groupId>com.vrv</groupId>
+            <artifactId>vrv-rpc-dubbo-starter</artifactId>
+            <version>1.0.8</version>
+        </dependency>
     </dependencies>
 
 
-    <!--指定配置文件-->
-    <!--<profiles>
-        <profile>
-            <id>afk</id>
-            <properties>
-                <spring.profiles.active>dev</spring.profiles.active>
-            </properties>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
-        </profile>
-    </profiles>-->
+
 
     <build>
-        <!-- 指定打包的后的包名,此处 -->
         <plugins>
-<!--            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
 
-            </plugin>-->
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
+                <groupId>com.github.wvengen</groupId>
+                <artifactId>proguard-maven-plugin</artifactId>
+                <version>${proguard.maven.plugin.version}</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>proguard</goal>
+                        </goals>
+                    </execution>
+                </executions>
+
                 <configuration>
-                    <!-- 忽略测试 -->
-                    <skip>true</skip>
+                    <proguardVersion>${proguard.version}</proguardVersion>
+                    <!--表示用于那些jar需要混淆-->
+                    <injar>${project.build.finalName}.jar</injar>
+                    <!--输出混淆后jar的名称-->
+                    <outjar>${project.build.finalName}.jar</outjar>
+                    <obfuscate>true</obfuscate>
+                    <proguardInclude>${project.basedir}/proguard.cfg</proguardInclude>
+<!--                    <options>-->
+<!--                        &lt;!&ndash;不压缩类文件。默认情况下会压缩所有的类文件，除了那些用keep声明和被这些类依赖的class&ndash;&gt;-->
+<!--                        <option>-dontshrink</option>-->
+<!--                        &lt;!&ndash;不优化代码，默认优化&ndash;&gt;-->
+<!--                        <option>-dontoptimize</option>-->
+
+<!--                        &lt;!&ndash; 此选项将用新的类名替换反射方法调用中的所有字符串。例如，调用Class.forName('className') &ndash;&gt;-->
+<!--                        <option>-adaptclassstrings</option>-->
+
+<!--                        &lt;!&ndash; 此选项将保存各种属性。否则，将从文件中删除所有注解。 &ndash;&gt;-->
+<!--                        <option>-keepattributes Exceptions, InnerClasses, Signature, Deprecated, SourceFile, LineNumberTable, *Annotation*, EnclosingMethod-->
+<!--                        </option>-->
+
+<!--                        &lt;!&ndash; 此选项将保存接口中的所有原始名称（不混淆） &ndash;&gt;-->
+<!--                        <option>-keepnames interface **</option>-->
+
+<!--                        &lt;!&ndash; 此选项将将所有原始方法参数 &ndash;&gt;-->
+<!--                        <option>-keepparameternames</option>-->
+
+<!--                        &lt;!&ndash; 此选项将保存所有原始类文件（不混淆），一般是混淆领域或者服务包中的文件。 &ndash;&gt;-->
+<!--                        <option>-keep-->
+<!--                            class com.weng.business.organization.QuickStartApplication {-->
+<!--                            *;-->
+<!--                            }-->
+<!--                        </option>-->
+<!--                        <option>-->
+<!--                            -keepnames class com.weng.business.organization.config.CustomBeanNameGenerator-->
+<!--                        </option>-->
+
+<!--                        &lt;!&ndash; 此选项忽略警告，例如重复的类定义和命名不正确的文件中的类 &ndash;&gt;-->
+<!--                        <option>-ignorewarnings</option>-->
+
+<!--                        &lt;!&ndash; 此选项将保存服务包中的所有原始类文件（不进行混淆） &ndash;&gt;-->
+<!--                        &lt;!&ndash; 此选项将保存所有软件包中的所有原始接口文件（不进行混淆） &ndash;&gt;-->
+<!--                        <option>-keep interface com.weng.business.organization.mapper.** { *; }</option>-->
+<!--&lt;!&ndash;                        <option>-keep class com.weng.business.organization.config.**  </option>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <option>-keep class com.weng.business.organization.dao.**  </option>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <option>-keep class com.weng.business.organization.controller.**  </option>&ndash;&gt;-->
+<!--                        <option>-keep class com.weng.business.organization.entity.** {*;} </option>-->
+<!--                        &lt;!&ndash; 此选项将保存所有包中所有类中的所有原始定义的注解 &ndash;&gt;-->
+<!--                        <option>-keep class com.fasterxml.jackson.** { *; }</option>-->
+<!--                        <option>-keep class org.json.JSONObject.** {**-->
+<!--                            put(java.lang.String,java.util.Map);}</option>-->
+<!--                        <option>-keepclassmembers class * {-->
+<!--                            @org.springframework.context.annotation.Bean *;-->
+<!--&lt;!&ndash;                            @org.springframework.beans.factory.annotation.Autowired *;&ndash;&gt;-->
+<!--                            @org.springframework.beans.factory.annotation.Value *;-->
+<!--                            }-->
+
+<!--                        </option>-->
+<!--                        &lt;!&ndash;忽略警告&ndash;&gt;-->
+<!--                        <option>-dontwarn com.fasterxml.jackson.databind.**</option>-->
+<!--                        <option>-dontwarn com.fasterxml.jackson.**</option>-->
+
+<!--                    </options>-->
+                    <injarNotExistsSkip>true</injarNotExistsSkip>
+                    <libs>
+                        <!--在此添加需要的类库 -->
+                        <lib>${java.home}/lib/rt.jar</lib>
+                    </libs>
+
                 </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.guardsquare</groupId>
+                        <artifactId>proguard-base</artifactId>
+                        <version>${proguard.version}</version>
+                    </dependency>
+                </dependencies>
             </plugin>
-            <!-- 打包jar文件时，配置manifest文件，加入lib包的jar依赖 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
                 <configuration>
                     <archive>
                         <manifest>
-                            <!-- Forcing the use of -SNAPSHOT versions -->
                             <useUniqueVersions>false</useUniqueVersions>
+                            <mainClass>com.weng.business.organization.QuickStartApplication</mainClass>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>../lib/</classpathPrefix>
-                            <mainClass>com.weng.business.organization.QuickStartApplication</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
             </plugin>
-            <!--<plugin>
-                <groupId>org.owasp</groupId>
-                <artifactId>dependency-check-maven</artifactId>
-            </plugin>-->
-<!--            <plugin>
+            <!-- spring-boot-maven-plugin必须在proguard混淆后运行，这样它就会获取已经混淆的文件，并将jar文件做替换-->
+            <plugin>
                 <groupId>org.springframework.boot</groupId>
-
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
 
-            </plugin>-->
 
+
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-dependency-plugin</artifactId>-->
+<!--            </plugin>-->
         </plugins>
     </build>
 </project>

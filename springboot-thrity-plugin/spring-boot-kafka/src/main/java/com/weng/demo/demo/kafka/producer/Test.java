@@ -27,7 +27,7 @@ public class Test {
         for (int i = 0; i < 1; i++) {
 
             kafkaMessage.setTopic("test_topic_ex");
-            kafkaMessage.setData("1234234234234234sada"+i);
+            kafkaMessage.setData("1234234234234234sada" + i);
 
             //helper.push(kafkaMessage);
             helper.push(kafkaMessage);
@@ -35,7 +35,7 @@ public class Test {
 
         }
 
-        Thread.sleep(500*60);
+        Thread.sleep(500 * 60);
     }
 
 }

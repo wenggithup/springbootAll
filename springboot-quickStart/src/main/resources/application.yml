@@ -1,0 +1,30 @@
+server:
+  port: 11802
+# VRV RPC Dubbo配置
+vrv:
+  logger:
+    path: /data/linkdood/im/conf/logconf/log4j2-default.yml
+
+  registry:
+    # zookeeper 注册中心配置
+    zookeeper:
+      address: ${ZOOKEEPER_URL}
+      namespace: /test/quickStart
+  nginx:
+    name: testNginx1
+    registry:
+      zookeeper:
+        address: ${ZOOKEEPER_URL}
+        #从环境变量中获取
+        namespace: ${NGINX_NAMESPACE}
+#        namespace: /vrv/im/nginx/v1/standard
+    #使用协议，不能为空
+    protocol:
+      useHttp: true
+      useHttps: true
+    #location信息
+    location:
+    #ip地址默认127.0.0.1 多个以逗号分割
+    ip: ${LOCAL_IP}
+    # 端口 多个以逗号分割
+    port: 11086

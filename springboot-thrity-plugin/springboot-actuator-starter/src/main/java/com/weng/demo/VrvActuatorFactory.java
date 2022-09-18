@@ -30,11 +30,11 @@ import java.util.UUID;
  * @Description:
  */
 public class VrvActuatorFactory {
-   private final static Logger logger = LoggerFactory.getLogger(VrvActuatorFactory.class);
+    private final static Logger logger = LoggerFactory.getLogger(VrvActuatorFactory.class);
 
-    public static void prometheusBuild(ApplicationContext context){
+    public static void prometheusBuild(ApplicationContext context) {
 
-        synchronized (context){
+        synchronized (context) {
             logger.info("prometheus config init build....");
             VrvActuatorProperties properties = context.getBean(VrvActuatorProperties.class);
 
@@ -49,14 +49,13 @@ public class VrvActuatorFactory {
 
             //统一配置prometheus开放端点、基础路径
 
-            prometheusOpenEndpoints(webEndpointProperties,properties);
+            prometheusOpenEndpoints(webEndpointProperties, properties);
 
-            registerPrometheusMetrics(properties,vrvConfig,serverProperties);
+            registerPrometheusMetrics(properties, vrvConfig, serverProperties);
 
             logger.info("prometheus config build finish ....");
         }
     }
-
 
 
     private static void registerPrometheusMetrics(VrvActuatorProperties properties, VrvConfig vrvConfig, ServerProperties serverProperties) {
@@ -75,35 +74,35 @@ public class VrvActuatorFactory {
 
         Integer port = serverProperties.getPort();
 
-        Map<String,Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>();
 
-        map.put("name",applicationName);
+        map.put("name", applicationName);
 
-        String bindIp ;
+        String bindIp;
         String host = url.getHost();
-        if (StringUtils.isBlank(host) || host.equals("127.0.0.1")){
+        if (StringUtils.isBlank(host) || host.equals("127.0.0.1")) {
             bindIp = System.getenv("LOCAL_IP");
-        }else {
-            bindIp= host;
+        } else {
+            bindIp = host;
         }
 
-        map.put("ip",bindIp);
-        map.put("protocol",properties.getProtocol());
-        map.put("path",properties.getEndpoint().getBasePath().concat(properties.getEndpoint().getBaseExposePath()));
-        map.put("port",port);
-        logger.info("register zk path :{}  ,nodeValue :{}",path,JSON.toJSONString(map));
+        map.put("ip", bindIp);
+        map.put("protocol", properties.getProtocol());
+        map.put("path", properties.getEndpoint().getBasePath().concat(properties.getEndpoint().getBaseExposePath()));
+        map.put("port", port);
+        logger.info("register zk path :{}  ,nodeValue :{}", path, JSON.toJSONString(map));
         ZookeeperUtils.createEphemeralNode(path, JSON.toJSONString(map));
     }
 
 
-    private static void prometheusOpenEndpoints(WebEndpointProperties webEndpointProperties,VrvActuatorProperties properties) {
+    private static void prometheusOpenEndpoints(WebEndpointProperties webEndpointProperties, VrvActuatorProperties properties) {
         EndpointsProperties endpoint = properties.getEndpoint();
 
         webEndpointProperties.setBasePath(endpoint.getBasePath());
 
         WebEndpointProperties.Exposure exposure = webEndpointProperties.getExposure();
 
-        if (CollectionUtils.isEmpty(endpoint.getExposeInclude())){
+        if (CollectionUtils.isEmpty(endpoint.getExposeInclude())) {
             endpoint.getExposeInclude().add("*");
         }
 
@@ -114,36 +113,36 @@ public class VrvActuatorFactory {
 
     private static void checkConfig(VrvActuatorProperties properties) {
 
-        if (null == properties.getProtocol()){
+        if (null == properties.getProtocol()) {
             properties.setProtocol("http");
         }
         RegistryProperties registry = properties.getRegistry();
         //默认注册配置为zk
-        if (null == registry.getModel()){
+        if (null == registry.getModel()) {
             registry.setModel("zookeeper");
         }
 
         ZookeeperProperties zookeeper = registry.getZookeeper();
 
-        if  (null == zookeeper.getAddress()){
+        if (null == zookeeper.getAddress()) {
             String zookeeper_url = System.getenv("ZOOKEEPER_URL");
-            if (null == zookeeper_url){
+            if (null == zookeeper_url) {
                 throw new RuntimeException("prometheus zookeeper register url is empty...");
             }
             zookeeper.setAddress(zookeeper_url);
         }
 
-        if (null == zookeeper.getPath()){
+        if (null == zookeeper.getPath()) {
             String zookeeper_actuator_path = System.getenv("ZOOKEEPER_ACTUATOR_PATH");
 
-            if (null == zookeeper_actuator_path){
+            if (null == zookeeper_actuator_path) {
                 throw new RuntimeException("prometheus zookeeper register path is empty...");
             }
 
             zookeeper.setPath(zookeeper_actuator_path);
         }
 
-        logger.info("config init value VrvActuatorProperties :{}",JSON.toJSON(properties));
+        logger.info("config init value VrvActuatorProperties :{}", JSON.toJSON(properties));
     }
 
 }

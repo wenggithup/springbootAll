@@ -12,6 +12,6 @@ public class ClientFilter implements Filter {
 
     @Override
     public Result invoke(Invoker<?> invoker, Invocation invocation) throws RpcException {
-       return  invoker.invoke(invocation);
+        return invoker.invoke(invocation);
     }
 }

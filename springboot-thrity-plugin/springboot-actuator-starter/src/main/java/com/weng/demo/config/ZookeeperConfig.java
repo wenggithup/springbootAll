@@ -24,9 +24,8 @@ public class ZookeeperConfig {
     private VrvActuatorProperties properties;
 
 
-
-    @Bean(initMethod = "start",destroyMethod = "close")
-    public CuratorFramework curatorFramework(){
+    @Bean(initMethod = "start", destroyMethod = "close")
+    public CuratorFramework curatorFramework() {
         RegistryProperties registry = properties.getRegistry();
         ZookeeperProperties zookeeperProperties = registry.getZookeeper();
         ExponentialBackoffRetry retry = new ExponentialBackoffRetry

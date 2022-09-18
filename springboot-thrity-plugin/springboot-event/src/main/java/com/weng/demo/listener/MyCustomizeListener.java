@@ -25,27 +25,31 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class MyCustomizeListener implements ApplicationListener<MyCustomizeEvent>, ApplicationContextAware {
     private String str;
     private ApplicationContext applicationContext;
-    public void setStr(String str){
+
+    public void setStr(String str) {
         this.str = str;
-        System.out.println("set str = "+str);
+        System.out.println("set str = " + str);
         System.out.println(this.toString());
     }
 
     @Override
     public void onApplicationEvent(MyCustomizeEvent event) {
-        System.out.println("正在监听事件。。。。。    str ="+ str);
+        System.out.println("正在监听事件。。。。。    str =" + str);
 
         System.out.println(this.toString());
     }
+
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         this.applicationContext = applicationContext;
 
     }
+
     private static AtomicInteger integer = new AtomicInteger(0);
+
     public MyCustomizeListener() {
         integer.incrementAndGet();
-        System.out.println("构造器执行了 "+integer);
+        System.out.println("构造器执行了 " + integer);
     }
 
 }

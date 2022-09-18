@@ -20,6 +20,7 @@ import javax.sql.DataSource;
 public class TransactionConfiguration {
     /**
      * 事务管理器实现由sharding sphere实现
+     *
      * @param dataSource
      * @return
      */

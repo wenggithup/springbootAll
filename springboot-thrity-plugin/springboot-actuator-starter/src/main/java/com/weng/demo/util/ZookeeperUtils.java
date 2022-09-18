@@ -17,24 +17,22 @@ public class ZookeeperUtils {
     private static CuratorFramework client;
     private final static Logger logger = LoggerFactory.getLogger(ZookeeperUtils.class);
 
-    public static void buildCuratorFramework(CuratorFramework curatorFramework){
+    public static void buildCuratorFramework(CuratorFramework curatorFramework) {
         ZookeeperUtils.client = curatorFramework;
     }
 
 
-
-
     public static String createEphemeralNode(String path, String nodeValue) {
         try {
-            if (! checkExists(path)) {
+            if (!checkExists(path)) {
                 return client.create().creatingParentsIfNeeded()
                         .withMode(CreateMode.EPHEMERAL)
                         .forPath(path, nodeValue.getBytes());
-            }else {
+            } else {
                 throw new RuntimeException("zk node is exist....");
             }
         } catch (Exception e) {
-            logger.error("create node error...,path:{},nodeValue:{}", path , nodeValue, e);
+            logger.error("create node error...,path:{},nodeValue:{}", path, nodeValue, e);
         }
         return null;
     }
@@ -55,7 +53,6 @@ public class ZookeeperUtils {
         }
         return null;
     }
-
 
 
     public static boolean checkExists(String path) {

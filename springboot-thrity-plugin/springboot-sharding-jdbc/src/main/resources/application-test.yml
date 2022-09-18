@@ -2,7 +2,7 @@ spring:
   application:
     name: sharding-jdbc
 
-#数据库配置
+  #数据库配置
   datasource:
     username: root
     password: 123456

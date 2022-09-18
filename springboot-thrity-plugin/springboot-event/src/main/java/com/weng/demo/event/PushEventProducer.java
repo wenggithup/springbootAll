@@ -14,8 +14,6 @@ public class PushEventProducer implements ApplicationEventPublisherAware {
     private ApplicationEventPublisher applicationEventPublisher;
 
 
-
-
     @Override
     public void setApplicationEventPublisher(ApplicationEventPublisher applicationEventPublisher) {
         this.applicationEventPublisher = applicationEventPublisher;

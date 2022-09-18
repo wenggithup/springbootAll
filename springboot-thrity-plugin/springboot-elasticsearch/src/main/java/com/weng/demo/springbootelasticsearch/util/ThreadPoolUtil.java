@@ -37,7 +37,7 @@ public class ThreadPoolUtil {
      */
     public static ExecutorService newCreateIndexSingleThreadPool() {
 
-      return   new ThreadPoolExecutor(1, 1, 0L, TimeUnit.MILLISECONDS,
+        return new ThreadPoolExecutor(1, 1, 0L, TimeUnit.MILLISECONDS,
                 new LinkedBlockingQueue<>(QUEUE_MAX_NUM),
                 new ThreadDefaultFactory(THIS_FACTORY_NAME, CREATE_INDEX_NAME));
 
@@ -49,7 +49,7 @@ public class ThreadPoolUtil {
      * @return
      */
     public static ExecutorService newUpdateIndexSingleThreadPool() {
-       return new ThreadPoolExecutor(1, 1, 0L, TimeUnit.MILLISECONDS,
+        return new ThreadPoolExecutor(1, 1, 0L, TimeUnit.MILLISECONDS,
                 new LinkedBlockingQueue<>(QUEUE_MAX_NUM),
                 new ThreadDefaultFactory(THIS_FACTORY_NAME, UPDATE_INDEX_NAME));
 
@@ -73,11 +73,12 @@ public class ThreadPoolUtil {
 
         /**
          * 用于打印日志时输出线程名称
+         *
          * @param factoryName
          * @param businessName
          */
         public ThreadDefaultFactory(String factoryName, String businessName) {
-                namePrefix.append("pool-").append(factoryName).append("-").append(businessName).append("-Worker-");
+            namePrefix.append("pool-").append(factoryName).append("-").append(businessName).append("-Worker-");
         }
     }
 

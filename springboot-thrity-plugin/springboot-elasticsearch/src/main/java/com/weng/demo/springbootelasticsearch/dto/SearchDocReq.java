@@ -15,7 +15,7 @@ import org.elasticsearch.search.sort.SortBuilder;
 @AllArgsConstructor
 public class SearchDocReq<T> {
 
-    private int size ;
+    private int size;
 
     private int from;
 

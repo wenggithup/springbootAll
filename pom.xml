@@ -8,6 +8,8 @@
         <module>springboot-quickStart</module>
         <module>springboot-bom</module>
         <module>poi_demo</module>
+        <module>springboot-thrity-plugin</module>
+        <module>test-spring-boot</module>
     </modules>
 
     <groupId>com.weng.demo</groupId>
@@ -28,9 +30,9 @@
         <mybatis-plus-generator.version>3.4.0</mybatis-plus-generator.version>
         <velocity.version>2.2</velocity.version>
         <mysql-connector.version>8.0.28</mysql-connector.version>
-        <druid.version>1.1.22</druid.version>
+        <druid.version>1.1.8</druid.version>
         <maven-resources-plugin.version>3.2.0</maven-resources-plugin.version>
-        <maven-springboot-plugin.version>2.2.6.RELEASE</maven-springboot-plugin.version>
+        <maven-springboot-plugin.version>2.1.1.RELEASE</maven-springboot-plugin.version>
         <shardingsphere-jdbc.version>5.0.0-alpha</shardingsphere-jdbc.version>
         <shardingsphere-jdbc-spring-boot.version>5.0.0-alpha</shardingsphere-jdbc-spring-boot.version>
         <dynamic-datasource-spring-boot.version>3.4.1</dynamic-datasource-spring-boot.version>
@@ -43,6 +45,7 @@
         <jetcd.version>0.5.11</jetcd.version>
         <elasticsearch.client.version>7.12.0</elasticsearch.client.version>
         <hutool.version>2.16.2</hutool.version>
+        <cglib.version>3.3.0</cglib.version>
 
 
 
@@ -60,20 +63,33 @@
     <dependencyManagement>
 
         <dependencies>
+
             <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>springboot-bom</artifactId>
-                <version>${project.version}</version>
-                <scope>import</scope>
-                <type>pom</type>
+                <groupId>cglib</groupId>
+                <artifactId>cglib</artifactId>
+                <version>${cglib.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid</artifactId>
+                <version>${druid.version}</version>
+            </dependency>
+
+<!--            <dependency>-->
+<!--                <groupId>${project.groupId}</groupId>-->
+<!--                <artifactId>springboot-bom</artifactId>-->
+<!--                <version>${project.version}</version>-->
+<!--                <scope>import</scope>-->
+<!--                <type>pom</type>-->
+<!--            </dependency>-->
             <dependency>
                 <groupId>com.xiaoleilu</groupId>
                 <artifactId>hutool</artifactId>
                 <version>${hutool.version}</version>
             </dependency>
 
-            <dependency>
+    <!--        <dependency>
                 <groupId>org.elasticsearch.client</groupId>
                 <artifactId>elasticsearch-rest-high-level-client</artifactId>
                 <version>${elasticsearch.client.version}</version>
@@ -83,7 +99,7 @@
                 <groupId>org.elasticsearch</groupId>
                 <artifactId>elasticsearch</artifactId>
                 <version>${elasticsearch.client.version}</version>
-            </dependency>
+            </dependency>-->
             <dependency>
                 <groupId>io.etcd</groupId>
                 <artifactId>jetcd-core</artifactId>
@@ -153,6 +169,12 @@
                 <version>${mybatis-plus-generator.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis-spring</artifactId>
+                <version>2.0.6</version>
+            </dependency>
+
             <!-- Velocity模板引擎依赖(代码生成器需要) -->
             <dependency>
                 <groupId>org.apache.velocity</groupId>
@@ -162,11 +184,11 @@
             <!-- MyBatis-Plus代码生成器依赖 end -->
 
             <!-- Alibaba的druid数据库连接池依赖 -->
-            <dependency>
-                <groupId>com.alibaba</groupId>
-                <artifactId>druid-spring-boot-starter</artifactId>
-                <version>${druid.version}</version>
-            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>com.alibaba</groupId>-->
+<!--                <artifactId>druid-spring-boot-starter</artifactId>-->
+<!--                <version>${druid.version}</version>-->
+<!--            </dependency>-->
 
             <!-- MySQL数据库依赖 -->
             <dependency>
@@ -285,17 +307,17 @@
                             </goals>
 
                         </execution>
-
                     </executions>
+
                 </plugin>
             </plugins>
         </pluginManagement>
 
         <plugins>
-            <plugin>
+<!--            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
-            </plugin>
+            </plugin>-->
 
             <!-- <plugin>
                <groupId>org.owasp</groupId>

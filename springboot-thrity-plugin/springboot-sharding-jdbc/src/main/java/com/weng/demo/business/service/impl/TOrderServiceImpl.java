@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Random;
 
 /**
- *  服务实现类 <p>
+ * 服务实现类 <p>
  *
  * @author Wengchuanjie
  * @date 2021-12-08
@@ -29,10 +29,10 @@ public class TOrderServiceImpl extends ServiceImpl<TOrderMapper, TOrder> impleme
     public void addOrder() {
         for (int i = 0; i < 10000; i++) {
             TOrder tOrder = new TOrder();
-            tOrder.setUserId(i+213);
-            tOrder.setAddressId(i+1231231);
+            tOrder.setUserId(i + 213);
+            tOrder.setAddressId(i + 1231231);
             tOrder.setStatus("this is status");
-            if (i==6000){
+            if (i == 6000) {
                 throw new RuntimeException();
             }
             tOrderMapper.insertOrder(tOrder);

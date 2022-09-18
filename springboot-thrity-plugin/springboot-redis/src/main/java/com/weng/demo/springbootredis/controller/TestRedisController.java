@@ -17,9 +17,10 @@ import javax.annotation.Resource;
 public class TestRedisController {
     @Resource
     RedisUtil redisUtil;
+
     @GetMapping("/testRedisSet")
-    public void testRedisSet(){
-        redisUtil.set("name","lisi");
+    public void testRedisSet() {
+        redisUtil.set("name", "lisi");
 
         String result = redisUtil.get("name");
         System.out.println(result);

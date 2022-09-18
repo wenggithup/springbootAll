@@ -23,9 +23,10 @@ class SpringbootRedisApplicationTests {
     private static final int SIZE = 100; // 10w
     private static final boolean VERBOSE = true;
     private static final int THREADS = Runtime.getRuntime().availableProcessors() << 1;
+
     @Test
     void testRedis() throws InterruptedException, IOException {
-        redisUtil.set("test_incr_id",1l);
+        redisUtil.set("test_incr_id", 1l);
         AtomicInteger control = new AtomicInteger(-1);
         Set<Long> uidSet = new ConcurrentSkipListSet<>();
         long old = System.currentTimeMillis();
@@ -51,10 +52,11 @@ class SpringbootRedisApplicationTests {
         checkUniqueID(uidSet);
         long now = System.currentTimeMillis();
         long time = now - old;
-        System.out.println(".....................user time  ="+time);
+        System.out.println(".....................user time  =" + time);
     }
+
     private void workerRun(Set<Long> uidSet, AtomicInteger control) {
-        for (;;) {
+        for (; ; ) {
             int myPosition = control.updateAndGet(old -> (old == SIZE ? SIZE : old + 1));
             if (myPosition == SIZE) {
                 return;
@@ -79,6 +81,7 @@ class SpringbootRedisApplicationTests {
             System.out.println(Thread.currentThread().getName() + " No." + index + " >>> " + incr_id);
         }
     }
+
     private void checkUniqueID(Set<Long> uidSet) throws IOException {
         System.out.println(uidSet.size());
         Assert.assertEquals(SIZE, uidSet.size());

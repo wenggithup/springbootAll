@@ -30,28 +30,28 @@ import java.util.List;
  */
 @RestController
 public class ShardingJdbcController {
-   @Autowired
+    @Autowired
     private TOrderMapper tOrder0Mapper;
 
-   @Autowired
-   private ITOrderService itOrderService;
+    @Autowired
+    private ITOrderService itOrderService;
 
-   @Autowired
-   private ImEnterpriseOrganizationMapper imEnterpriseOrganizationMapper;
+    @Autowired
+    private ImEnterpriseOrganizationMapper imEnterpriseOrganizationMapper;
 
-   @Autowired
-   private OrderTestMapper orderMapper;
-   @Autowired
-   private TOrder202101Mapper tOrder202101Mapper;
+    @Autowired
+    private OrderTestMapper orderMapper;
+    @Autowired
+    private TOrder202101Mapper tOrder202101Mapper;
 
     @GetMapping("/getShardingJdbcController")
-    public String getShardingJdbcController(){
+    public String getShardingJdbcController() {
         List<TOrder> tOrders = tOrder0Mapper.selectList(new QueryWrapper<TOrder>().lambda().orderByDesc(TOrder::getOrderId));
         return tOrders.toString();
     }
 
     @GetMapping("/insertShardingJdbcController")
-    public String insertShardingJdbcController(){
+    public String insertShardingJdbcController() {
         itOrderService.addOrder();
         return "success";
     }
@@ -60,8 +60,8 @@ public class ShardingJdbcController {
     public String insertIntervalShardingJdbcController() throws ParseException {
         for (int i = 0; i < 10; i++) {
             TOrder202101 tOrder = new TOrder202101();
-            tOrder.setName("this is test name："+i);
-            tOrder.setPrice(2*i);
+            tOrder.setName("this is test name：" + i);
+            tOrder.setPrice(2 * i);
             DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             tOrder.setOrderTime(format.parse("2021-10-21 18:00:00"));
 
@@ -72,13 +72,12 @@ public class ShardingJdbcController {
 
 
     @GetMapping("/testDefaultShardingJdbcController")
-    public String testDefaultShardingJdbcController(){
+    public String testDefaultShardingJdbcController() {
         for (int i = 0; i < 10; i++) {
             OrderTest tOrder = new OrderTest();
             //tOrder.setId(i+1234l);
             //tOrder.setId("234");
             tOrder.setRemark(1234);
-
 
 
             orderMapper.insert(tOrder);
@@ -87,7 +86,7 @@ public class ShardingJdbcController {
     }
 
     @GetMapping("/testGetDefaultShardingJdbcController")
-    public String testGetDefaultShardingJdbcController(){
+    public String testGetDefaultShardingJdbcController() {
         List<ImEnterpriseOrganization> imEnterpriseOrganizations = imEnterpriseOrganizationMapper.selectList(new QueryWrapper<>());
         return imEnterpriseOrganizations.toString();
     }

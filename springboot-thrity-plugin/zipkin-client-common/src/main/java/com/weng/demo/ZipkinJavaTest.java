@@ -25,11 +25,10 @@ import static java.lang.Thread.sleep;
 public class ZipkinJavaTest {
 
     /**
-     *
      * @param args
      */
     public static void main(String[] args) throws InterruptedException, IOException {
-       // for (int i = 0; i < 500; i++) {
+        // for (int i = 0; i < 500; i++) {
 
 
         // 配置reporter，用于控制向zipkin发送span的频率
@@ -50,19 +49,19 @@ public class ZipkinJavaTest {
         // 创建trance 对象
         Tracer tracer = tracing.tracer();
 
-        if (null != tracer.currentSpan()){
+        if (null != tracer.currentSpan()) {
 
         }
 
         // 定义span内容
         Span root = tracer.newTrace().name("root-encode")
-                .kind(SERVER).tag("POST","/serviceRoot").start();
+                .kind(SERVER).tag("POST", "/serviceRoot").start();
 
         root.finish();
 
 /*        spanReporter.close();
         sender.close();*/
-    System.out.println(tracing.currentTraceContext());
+        System.out.println(tracing.currentTraceContext());
         tracing.close();
 
 
@@ -75,19 +74,18 @@ public class ZipkinJavaTest {
 
         System.out.println(tracerA.currentSpan());
         //定义父节点为root span
-        Span span = tracerA.newChild(root.context()).kind(SERVER).tag("GET","/serviceA").name("encode").start();
+        Span span = tracerA.newChild(root.context()).kind(SERVER).tag("GET", "/serviceA").name("encode").start();
 
         //定义父节点为 A pan
-        Span span2 = tracerA.newChild(span.context()).kind(SERVER).tag("GET","/serviceA-A").name("encode-A-A").start();
+        Span span2 = tracerA.newChild(span.context()).kind(SERVER).tag("GET", "/serviceA-A").name("encode-A-A").start();
         //sleep(500);
-
 
 
         span.finish();
         span2.finish();
         sleep(3000);
 
-        }
     }
+}
 
 //}

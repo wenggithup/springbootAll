@@ -11,15 +11,15 @@ import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
- *  <p>
+ * <p>
  *
  * @author Wengchuanjie
  * @date 2021-12-09
  */
 @Data
- @Accessors(chain = true)
+@Accessors(chain = true)
 
-public class TOrder202101{
+public class TOrder202101 {
 
     @TableId(value = "id", type = IdType.AUTO)
     private String id;

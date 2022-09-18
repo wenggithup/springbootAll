@@ -11,19 +11,19 @@ import io.micrometer.core.instrument.Timer;
  * @Description:
  */
 public class MetricUtils {
-    private  static MeterRegistry meterRegistry;
+    private static MeterRegistry meterRegistry;
 
 
-    public static void buildMetric(MeterRegistry meterRegistry){
+    public static void buildMetric(MeterRegistry meterRegistry) {
         MetricUtils.meterRegistry = meterRegistry;
     }
 
-    public static Counter buildCounter(String name,String desc,String ...tags){
-       return Counter.builder(name)
+    public static Counter buildCounter(String name, String desc, String... tags) {
+        return Counter.builder(name)
                 .tags(tags).description(desc).register(meterRegistry);
     }
 
-    public static Timer buildTimer(String name, String desc, String ...tags){
+    public static Timer buildTimer(String name, String desc, String... tags) {
         return Timer.builder(name)
                 .tags(tags).description(desc).register(meterRegistry);
     }

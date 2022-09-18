@@ -20,7 +20,7 @@ public class TestJava {
         KV kvClient = client.getKVClient();
 
         try {
-            kvClient.put(ByteSequence.from("123".getBytes(StandardCharsets.UTF_8)),ByteSequence.from("123".getBytes(StandardCharsets.UTF_8))).get();
+            kvClient.put(ByteSequence.from("123".getBytes(StandardCharsets.UTF_8)), ByteSequence.from("123".getBytes(StandardCharsets.UTF_8))).get();
             GetResponse getResponse = kvClient.get(ByteSequence.from("123".getBytes(StandardCharsets.UTF_8))).get();
             System.out.println(getResponse.toString());
         } catch (Exception e) {

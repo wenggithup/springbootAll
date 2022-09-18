@@ -10,7 +10,7 @@ import lombok.experimental.Accessors;
 import java.math.BigInteger;
 
 /**
- *  <p>
+ * <p>
  *
  * @author Wengchuanjie
  * @date 2021-12-08
@@ -18,7 +18,7 @@ import java.math.BigInteger;
 @Data
 @Accessors(chain = true)
 @TableName("t_order")
-public class TOrder  {
+public class TOrder {
 
     @TableId(value = "order_id", type = IdType.INPUT)
     private Long orderId;

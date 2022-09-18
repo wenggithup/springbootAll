@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.weng.demo.business.entity.ImEnterpriseOrganization;
 
 /**
- *  Mapper 接口 <p>
+ * Mapper 接口 <p>
  *
  * @author Wengchuanjie
  * @date 2021-12-08

@@ -24,7 +24,7 @@ public class VrvActuatorConfiguration {
 
     private final MeterRegistry meterRegistry;
 
-    public VrvActuatorConfiguration(ApplicationContext context, CuratorFramework curatorFramework, MeterRegistry meterRegistry){
+    public VrvActuatorConfiguration(ApplicationContext context, CuratorFramework curatorFramework, MeterRegistry meterRegistry) {
         this.context = context;
         this.curatorFramework = curatorFramework;
         this.meterRegistry = meterRegistry;
@@ -37,7 +37,6 @@ public class VrvActuatorConfiguration {
         VrvActuatorFactory.prometheusBuild(context);
 
     }
-
 
 
 }

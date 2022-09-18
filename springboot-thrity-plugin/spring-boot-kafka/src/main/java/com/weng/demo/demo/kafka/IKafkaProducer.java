@@ -14,12 +14,14 @@ public interface IKafkaProducer {
 
     /**
      * 推送消息,有回调
+     *
      * @param kafkaMessage
      */
-    void push(KafkaMessage kafkaMessage,KafkaCallBack kafkaCallBack);
+    void push(KafkaMessage kafkaMessage, KafkaCallBack kafkaCallBack);
 
     /**
      * 推送消息，无回调
+     *
      * @param kafkaMessage
      */
     void push(KafkaMessage kafkaMessage);

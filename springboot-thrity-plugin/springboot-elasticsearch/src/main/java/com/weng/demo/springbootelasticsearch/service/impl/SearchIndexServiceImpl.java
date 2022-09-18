@@ -45,15 +45,17 @@ public class SearchIndexServiceImpl<T> implements SearchIndexService {
     public <T> T wrapper(T source, SearchDocReq req) {
         return source;
     }
+
     /**
      * 分页获取文档内容
+     *
      * @param req
      * @param indexName
      * @return
      */
     @Override
-    public List<T>  searchDocByPage(Class t,SearchDocReq req, String indexName) {
-        Map<String,Object> map = new HashMap<>();
+    public List<T> searchDocByPage(Class t, SearchDocReq req, String indexName) {
+        Map<String, Object> map = new HashMap<>();
         Object o = req.getFieldClass();
         Class<?> sourceClass = o.getClass();
         for (Class<?> c = sourceClass; !c.equals(Object.class); c = c.getSuperclass()) {
@@ -70,9 +72,9 @@ public class SearchIndexServiceImpl<T> implements SearchIndexService {
                     field.setAccessible(true);
                     String fieldName = field.getName();
                     Object value = field.get(o);
-                    map.put(fieldName,value);
+                    map.put(fieldName, value);
                 } catch (IllegalAccessException e) {
-                   logger.info("get target value error.....");
+                    logger.info("get target value error.....");
                 }
 
             }
@@ -80,27 +82,27 @@ public class SearchIndexServiceImpl<T> implements SearchIndexService {
         //遍历map，添加BoolQueryBuilder
         BoolQueryBuilder boolQueryBuilder = null;
 
-        if (CollectionUtil.isNotEmpty(map)){
-            boolQueryBuilder  = QueryBuilders.boolQuery();
+        if (CollectionUtil.isNotEmpty(map)) {
+            boolQueryBuilder = QueryBuilders.boolQuery();
             for (Map.Entry<String, Object> entry : map.entrySet()) {
                 //包含match的做模糊匹配，否则做精确匹配
                 String key = entry.getKey();
                 Object value = entry.getValue();
-                if (key.contains("match") && null !=value){
+                if (key.contains("match") && null != value) {
                     BoolQueryBuilder queryBuilder = QueryBuilders.boolQuery();
-                    queryBuilder.should(QueryBuilders.wildcardQuery(key, "*"+value+"*"));
+                    queryBuilder.should(QueryBuilders.wildcardQuery(key, "*" + value + "*"));
                     boolQueryBuilder.must(queryBuilder);
                 }
                 //做范围匹配,默认大于
-                else if (key.contains("range")&& null != value){
+                else if (key.contains("range") && null != value) {
                     boolQueryBuilder.must(QueryBuilders.rangeQuery(key).gt(value));
                 }
                 //TODO 做对象字段匹配
-                else if (key.contains("list")&& null != value){
+                else if (key.contains("list") && null != value) {
 
                 }
                 //做精确匹配
-                else if (null != value){
+                else if (null != value) {
                     boolQueryBuilder.must(QueryBuilders.termQuery(key, value));
                 }
 
@@ -122,22 +124,23 @@ public class SearchIndexServiceImpl<T> implements SearchIndexService {
         List<T> result = new ArrayList<>();
         try {
             SearchResponse response = esClient.search(searchRequest, RequestOptions.DEFAULT);
-            if (null != response){
+            if (null != response) {
                 SearchHit[] hits = response.getHits().getHits();
                 for (SearchHit hit : hits) {
                     String sourceAsString = hit.getSourceAsString();
-                    T value = (T) OBJECT_MAPPER.readValue(sourceAsString,t);
+                    T value = (T) OBJECT_MAPPER.readValue(sourceAsString, t);
                     result.add(value);
                 }
                 return result;
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             logger.info("esClient query error");
         }
 
 
         return null;
     }
+
     private static final ObjectMapper OBJECT_MAPPER = Optional.<ObjectMapper>empty().orElseGet(() -> {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new ParameterNamesModule())

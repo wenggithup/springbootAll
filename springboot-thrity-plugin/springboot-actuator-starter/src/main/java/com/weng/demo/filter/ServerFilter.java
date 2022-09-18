@@ -8,6 +8,7 @@ import org.apache.dubbo.common.extension.Activate;
 import org.apache.dubbo.rpc.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import java.lang.reflect.Method;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -42,7 +43,7 @@ public class ServerFilter implements Filter {
             if (null == counterMap.get(keyMetric)) {
                 counter = MetricUtils.buildCounter
                         (serviceInterface.getSimpleName(), serviceInterface.getSimpleName() + "调用接口count", "methodName", method.getName());
-            }else {
+            } else {
                 counter = counterMap.get(keyMetric);
             }
             counter.increment();
@@ -54,7 +55,7 @@ public class ServerFilter implements Filter {
             if (null == timerMap.get(keyMetric)) {
                 timer = MetricUtils.buildTimer(
                         (serviceInterface.getSimpleName()), serviceInterface.getSimpleName() + "调用接口timer", "methodName", method.getName());
-            }else {
+            } else {
                 timer = timerMap.get(keyMetric);
             }
             timer.record(l, TimeUnit.MILLISECONDS);

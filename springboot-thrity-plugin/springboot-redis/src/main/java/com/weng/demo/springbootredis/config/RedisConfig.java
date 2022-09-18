@@ -35,7 +35,7 @@ public class RedisConfig {
         objectMapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
         // 方法过期，改为下面代码
 //        objectMapper.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
-        objectMapper.activateDefaultTyping(LaissezFaireSubTypeValidator.instance ,
+        objectMapper.activateDefaultTyping(LaissezFaireSubTypeValidator.instance,
                 ObjectMapper.DefaultTyping.NON_FINAL, JsonTypeInfo.As.PROPERTY);
         jackson2JsonRedisSerializer.setObjectMapper(objectMapper);
         jackson2JsonRedisSerializer.setObjectMapper(objectMapper);

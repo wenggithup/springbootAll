@@ -16,13 +16,13 @@ public class ZookeeperProperties {
     private String path;
 
     //会话超时时间
-    private int sessionTimeout = 100*1000;
+    private int sessionTimeout = 100 * 1000;
 
     //链接超时
-    private int connectionTimeout = 50*1000;
+    private int connectionTimeout = 50 * 1000;
 
     //重试间隔
-    private int baseSleepTimeMs = 3*1000;
+    private int baseSleepTimeMs = 3 * 1000;
 
     //最大重试次数
     private int maxRetries = 5;

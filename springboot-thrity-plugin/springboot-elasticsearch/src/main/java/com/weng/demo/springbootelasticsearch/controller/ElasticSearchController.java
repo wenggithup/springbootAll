@@ -38,7 +38,7 @@ import java.util.*;
  */
 @RestController
 public class ElasticSearchController {
-    private final String INDEX_NAME="user_index_name";
+    private final String INDEX_NAME = "user_index_name";
 
     private final String TEST_INDEX_NAME = "weng_test_index_name";
     private final String user_weng_index_name = "user_weng_index_name";
@@ -56,7 +56,7 @@ public class ElasticSearchController {
 
 
     @GetMapping("/testSearch")
-    public String testSearch(){
+    public String testSearch() {
         TestSearchFeild testSearchFeild = new TestSearchFeild();
         testSearchFeild.setDescr("生产时间范围");
 
@@ -67,6 +67,7 @@ public class ElasticSearchController {
 
     /**
      * 迁移数据
+     *
      * @return
      * @throws IOException
      */
@@ -98,9 +99,9 @@ public class ElasticSearchController {
         System.out.println(hits.length);
         for (SearchHit hit : hits) {
             Map<String, Object> sourceAsMap = hit.getSourceAsMap();
-            long [] userIdList = {1,3,4,5};
-            sourceAsMap.put("test_weng_daxia",userIdList);
-            createIndexService.createIndexByMap(sourceAsMap,TEST_INDEX_NAME);
+            long[] userIdList = {1, 3, 4, 5};
+            sourceAsMap.put("test_weng_daxia", userIdList);
+            createIndexService.createIndexByMap(sourceAsMap, TEST_INDEX_NAME);
         }
         return "success";
     }
@@ -152,34 +153,34 @@ public class ElasticSearchController {
      * 创建全文索引，根据field类型创建mapping
      *
      */
-    public String testXBuilder(){
+    public String testXBuilder() {
         try {
             XContentBuilder jsonBuilder = XContentFactory.jsonBuilder().startObject();
             long userId = 3L;
-            String userName ="213";
-            long [] userIdList = {1,3,4,5};
+            String userName = "213";
+            long[] userIdList = {1, 3, 4, 5};
 
-            List<Map<String,Object>> list = new ArrayList<>();
+            List<Map<String, Object>> list = new ArrayList<>();
             DocumentAndType type = new DocumentAndType();
 
             //Object userInfo = new Object();
 
-            jsonBuilder.field("userId",userId);
-            jsonBuilder.field("userName",userName);
-            jsonBuilder.field("userIdList",userIdList);
+            jsonBuilder.field("userId", userId);
+            jsonBuilder.field("userName", userName);
+            jsonBuilder.field("userIdList", userIdList);
             //jsonBuilder.field("userInfo",userInfo);
-            Map<String,Object> map = new HashMap<>();
-            map.put("userId",userId);
-            map.put("userName",userName);
-            map.put("userIdList",userIdList);
+            Map<String, Object> map = new HashMap<>();
+            map.put("userId", userId);
+            map.put("userName", userName);
+            map.put("userIdList", userIdList);
             list.add(map);
             list.add(map);
             list.add(map);
             //nest type
-            jsonBuilder.field("json_test_nest",list);
+            jsonBuilder.field("json_test_nest", list);
             jsonBuilder.endObject();
 
-            indexQueue.addDocQueue(jsonBuilder,null,"user_weng_index_name",null);
+            indexQueue.addDocQueue(jsonBuilder, null, "user_weng_index_name", null);
 
         } catch (IOException e) {
             e.printStackTrace();

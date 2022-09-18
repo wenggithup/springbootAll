@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>spring-boot-demo-parent</artifactId>
+        <groupId>com.weng.demo</groupId>
+        <version>0.0.1</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <packaging>jar</packaging>
+    <artifactId>test-spring-boot</artifactId>
+
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+        <start-class>com.weng.demo.DemoSpringbootApplication</start-class>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+        <!-- 指定打包的后的包名,此处 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+
+            </plugin>
+
+            <plugin>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+            <configuration>
+                <executable>true</executable>
+            </configuration>
+            <executions>
+                <execution>
+                    <goals>
+                        <goal>repackage</goal>
+                    </goals>
+                </execution>
+            </executions>
+
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <useUniqueVersions>false</useUniqueVersions>
+                            <mainClass>com.weng.demo.DemoSpringbootApplication</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <!-- proguard混淆插件-->
+                <groupId>com.github.wvengen</groupId>
+                <artifactId>proguard-maven-plugin</artifactId>
+                <version>2.1.1</version>
+                <executions>
+                    <execution>
+                        <!-- 打包的时候开始混淆-->
+                        <phase>package</phase>
+                        <goals><goal>proguard</goal></goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <!--                    <proguardVersion>6.0.3</proguardVersion>-->
+                    <!--指定混淆的jar,如springboot打出来的jar基于它混淆-->
+                    <injar>${project.build.finalName}.jar</injar>
+                    <!--输出的jar-->
+                    <outjar>${project.build.finalName}.jar</outjar>
+                    <outputDirectory>${project.build.directory}</outputDirectory>
+                    <!-- 是否混淆-->
+                    <obfuscate>true</obfuscate>
+                    <!--配置文件，也可用options写在maven.xml中  -->
+                    <proguardInclude>${project.basedir}/proguard.cfg</proguardInclude>
+
+                    <libs>
+                        <!-- 添加依赖 java8-->
+                        <lib>${java.home}/lib/rt.jar</lib>
+                        <lib>${java.home}/lib/jce.jar</lib>
+                    </libs>
+                </configuration>
+
+
+            </plugin>
+        </plugins>
+    </build>
+</project>
